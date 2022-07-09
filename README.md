@@ -13,3 +13,15 @@ use Tall\Acl\Models\User as Authenticatable;
   
 ```
 
+
+#ALTER PRESSETS 
+
+tailwind.config.js
+```
+  presets:[
+         ...
+        require('./vendor/callcocam/tall-acl/tailwind.config.js'),
+        ...
+    ],
+  
+```
