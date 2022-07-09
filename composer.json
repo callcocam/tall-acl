@@ -1,0 +1,30 @@
+{
+    "name": "callcocam/tall-acl",
+    "type": "package",
+    "description": "The packages acl table.",
+    "keywords": ["framework", "laravel", "livewire", "alpinejs", "tailwindcss"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/jetstream": "^2.9",
+        "livewire/livewire": "^2.5",
+        "wireui/wireui": "^1.7",
+        "callcocam/tall-schema": "dev-main",
+        "callcocam/tall-sluggable": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tall\\Acl\\": "src"
+        }
+    },
+    
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tall\\Acl\\AclServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
