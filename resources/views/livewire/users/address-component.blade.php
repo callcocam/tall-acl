@@ -3,104 +3,48 @@
     <div class="shadow overflow-hidden sm:rounded-md">
         <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-4">
-                @if ($field = \Arr::get($fields, 'zip'))
-                    <div class="col-span-6 sm:col-span-2">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm {{ $errors->has($field->name) ? 'border-red-300' : 'border-gray-300' }} rounded-md">
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'city'))
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm {{ $errors->has($field->name) ? 'border-red-300' : 'border-gray-300' }} rounded-md">
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'state'))
-                    <div class="col-span-6 sm:col-span-1">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <select id="{{ $field->name }}" name="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}"
-                            class="mt-1 block w-full py-2 px-3 border {{ $errors->has($field->name) ? 'border-red-300' : 'border-gray-300' }} bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="">{{ __('==Select==') }}</option>
-                            @foreach (lista_estados() as $sigla => $name)
-                                <option value="{{ $sigla }}">{{ $name }}</option>
+                <div class="col-span-6 sm:col-span-2">
+                    <x-input wire:model.defer="data.zip" label="{{ __('Codigo Postal') }}"
+                        placeholder="{{ __('000000-000') }}" />
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <x-input wire:model.defer="data.city" label="{{ __('City') }}"
+                        placeholder="{{ __('City') }}" />
+                </div>
+                <div class="col-span-6 sm:col-span-1">
+                    <x-native-select label="{{ __('UF') }}" wire:model.defer="data.state">
+                        <option>=={{ __('Selecione') }}==</option>
+                        @if ($states = $this->states)
+                            @foreach ($states as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
-                        </select>
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'district'))
-                    <div class="col-span-6 sm:col-span-3">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm {{ $errors->has($field->name) ? 'border-red-300' : 'border-gray-300' }} rounded-md">
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'number'))
-                    <div class="col-span-6 sm:col-span-2">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                @endif
-                
-                @if ($field = \Arr::get($fields, 'street'))
-                    <div class="col-span-6">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                @endif
-                
-                @if ($field = \Arr::get($fields, 'complement'))
-                    <div class="col-span-6 sm:col-span-4">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'country'))
-                    <div class="col-span-6 sm:col-span-2">
-                        <label for="{{ $field->name }}"
-                            class="block text-sm font-medium text-gray-700">{{ $field->label }}</label>
-                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                            wire:model.defer="{{ $field->key }}" placeholder="{{ $field->placeholder }}"
-                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                    </div>
-                @endif
-                @if ($field = \Arr::get($fields, 'description_preview'))
-                    <div class="col-span-6">
-                        <label for="{{ $field->name }}" class="block text-sm font-medium text-gray-700">
-                            {{ __($field->label) }}
-                        </label>
-                        <div class="mt-1">
-                            <textarea name="{{ $field->name }}" id="{{ $field->name }}"
-                                wire:model.defer="{{ $field->key }}" rows="{{ $field->rows }}"
-                                cols="{{ $field->cols }}"
-                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                                placeholder="{{ $field->placeholder }}"></textarea>
-                        </div>
-                        @if ($field->hint)
-                            <p class="mt-2 text-sm text-gray-500">
-                                {{ $field->hint }}
-                            </p>
                         @endif
-                    </div>
-                @endif
+                    </x-native-select>
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <x-input wire:model.defer="data.district" label="{{ __('District') }}"
+                        placeholder="{{ __('District') }}" />
+                </div>
+                <x-input wire:model.defer="data.number" label="{{ __('Number') }}"
+                    placeholder="{{ __('Number') }}" />
+            </div>
+
+            <div class="col-span-6">
+                <x-input wire:model.defer="data.street" label="{{ __('Street') }}"
+                    placeholder="{{ __('Street') }}" />
+            </div>
+
+            <div class="col-span-6 sm:col-span-4">
+                <x-input wire:model.defer="data.complement" label="{{ __('Complement') }}"
+                    placeholder="{{ __('Complement') }}" />
+            </div>
+            <div class="col-span-6 sm:col-span-2">
+                <x-input wire:model.defer="data.country" label="{{ __('Country') }}"
+                    placeholder="{{ __('Country') }}" />
+                <div class="col-span-6">
+                    <x-textarea wire:model.defer="data.description" label="{{ __('Description') }}"
+                        placeholder="{{ __('Description') }}" />
+                </div>
             </div>
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">

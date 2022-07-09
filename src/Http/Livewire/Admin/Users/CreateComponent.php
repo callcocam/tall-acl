@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Validation\Rule;
 
 class CreateComponent extends FormComponent
 {
@@ -51,7 +52,7 @@ class CreateComponent extends FormComponent
     protected function rules(){
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users','email')],
             'password' => $this->passwordRules(),
         ];
      }

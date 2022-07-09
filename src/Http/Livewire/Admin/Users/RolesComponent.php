@@ -15,27 +15,24 @@ class RolesComponent extends FormComponent
 
     public function mount(?User $model)
     {
-        //Gate::authorize()
-
         $this->setFormProperties($model); // $user from hereon, called $this->model
-       
+        
     }
 
     protected function view(){
         return "tall-acl::livewire.users.roles-component";
     }
 
-    protected function formAttr(): array
-    {
-        return [
-           'formTitle' => __('User Roles'),
-           'wrapWithView' => false,
-           'showDelete' => false,
-       ];
+    public function getRolesProperty(){
+        return \Tall\Acl\Models\Role::query()->get();
     }
 
     public function success()
     { 
-        $this->model->roles()->sync(data_get($this->data,'access'));
+        $this->model->roles()->sync(array_filter(data_get($this->data,'access',[])));
+        $this->notification()->success(
+            $title = __('OPSS!!'),
+            $description = __("Roles atualizado com sucesso!!")
+        );
     }
 }

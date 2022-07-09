@@ -38,6 +38,9 @@ class EditComponent extends FormComponent
     {
         $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model); // $user from hereon, called $this->model
+        data_set($this->data,'data.password',"");
+        data_set($this->data,'data.current_password',"");
+        data_set($this->data,'data.password_confirmation',"");
     }
 
 

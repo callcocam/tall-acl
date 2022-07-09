@@ -11,14 +11,12 @@
                 <div class="mt-5 md:mt-0">
                     <form wire:submit.prevent="saveAndStay">
                         <div class="shadow sm:rounded-md ">                            
-                        @include('tall-acl::livewire.users.form')
+                        @include('tall-acl::livewire.users.profile-component')
                         </div>
                         <div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 z-10 space-x-2">
                             <x-button wire:loading.attr="disabled" squared negative
                                 href="{{ route(config('acl.routes.users.list')) }}"
                                 label="{{ __('Voltar para alista') }}" icon="x" />
-                            <x-button type="submit" wire:loading.attr="disabled" squared primary
-                                label="{{ __('Sarvar as alterações') }}" icon="check" />
                         </div>
                     </form>
                 </div>

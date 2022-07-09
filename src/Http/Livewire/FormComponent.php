@@ -9,12 +9,15 @@ namespace Tall\Acl\Http\Livewire;
 
 use Livewire\Component;
 use WireUi\Traits\Actions;
+use Livewire\WithFileUploads;
+use Illuminate\Http\UploadedFile;
 
 abstract class FormComponent extends Component
 {
-    use Actions;    
+    use Actions, WithFileUploads;    
     public $data = [];
     public $model;
+    public $photo_url = "profile_photo_url";
     
     abstract protected function view();
 
@@ -22,9 +25,25 @@ abstract class FormComponent extends Component
          return $this->submit();
     }
 
+    protected function uploadPhoto()
+    {
+        if (method_exists($this->model, 'updateProfilePhoto')) {
+            foreach ($this->data as $name => $value) {
+                if ($value instanceof UploadedFile) {
+                    data_set($this->data, $this->photo_url, $value->temporaryUrl());
+                    $this->model->updateProfilePhoto($value);
+                    unset($this->data[$name]);
+                }
+            }
+        }
+         return true;
+    
+    }
+
     protected function submit(){
             if ($rules = $this->rules())
             $this->validate($this->format_rules($rules));
+            $this->uploadPhoto();
             return $this->success();
     }
 

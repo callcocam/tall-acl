@@ -51,6 +51,7 @@ class AclServiceProvider extends ServiceProvider
        
         Livewire::component( 'tall-acl::users.roles-component', \Tall\Acl\Http\Livewire\Admin\Users\RolesComponent::class);
         Livewire::component( 'tall-acl::users.address-component', \Tall\Acl\Http\Livewire\Admin\Users\AddressComponent::class);
+        Livewire::component( 'tall-acl::roles.permissions-component', \Tall\Acl\Http\Livewire\Admin\Roles\PermissionsComponent::class);
         
         Livewire::component( 'tall-acl::users.list-component', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class);
         Livewire::component( 'tall-acl::roles.list-component', \Tall\Acl\Http\Livewire\Admin\Roles\ListComponent::class);

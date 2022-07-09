@@ -28,8 +28,8 @@ abstract class TableComponent extends Component
 
 
     protected $queryString = [
-        'direction' => ['except' => ''],
-        'sort' => ['except' => ''],
+        'direction' => ['except' => 'asc'],
+        'sort' => ['except' => 'id'],
         'search' => ['except' => ''],
         'page' => ['except' => 1],
         'perPage' => ['except' => 12],

@@ -16,19 +16,44 @@ class AddressComponent extends FormComponent
 
     public function mount(?User $model)
     {
-        $this->setFormProperties($model->address()->firstOrCreate()); // $user from hereon, called $this->model
+        $this->setFormProperties($model->address()->firstOrCreate()); 
     }
 
     protected function view(){
         return "tall-acl::livewire.users.address-component";
     }
-    protected function formAttr(): array
+
+
+    public function getStatesProperty()
     {
         return [
-           'formTitle' => __('User Address'),
-           'wrapWithView' => false,
-           'showDelete' => false,
-       ];
+            "AC"=>"Acre",
+            "AL"=>"Alagoas",
+            "AP"=>"Amapá",
+            "AM"=>"Amazonas",
+            "BA"=>"Bahia",
+            "CE"=>"Ceará",
+            "ES"=>"Espírito Santo",
+            "GO"=>"Goiás",
+            "MA"=>"Maranhão",
+            "MT"=>"Mato Grosso",
+            "MS"=>"Mato Grosso do Sul",
+            "MG"=>"Minas Gerais",
+            "PA"=>"Pará",
+            "PB"=>"Paraíba",
+            "PR"=>"Paraná",
+            "PE"=>"Pernambuco",
+            "PI"=>"Piauí",
+            "RJ"=>"Rio de Janeiro",
+            "RN"=>"Rio Grande do Norte",
+            "RS"=>"Rio Grande do Sul",
+            "RO"=>"Rondônia",
+            "RR"=>"Roraima",
+            "SC"=>"Santa Catarina",
+            "TO"=>"São Paulo",
+            "SE"=>"Sergipe",
+            "DF"=>"Distrito Federal"
+         ];
     }
 
 }

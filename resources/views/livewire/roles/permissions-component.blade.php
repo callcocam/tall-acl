@@ -1,17 +1,15 @@
 <form wire:submit.prevent="saveAndStay">
     <x-errors title="We found {errors} validation error(s)" />
-    <div class="shadow overflow-hidden sm:rounded-md">
+    <div class="shadow sm:rounded-md">
         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-            @if ($roles = $this->roles)
-                <fieldset>
-                    <legend class="text-base font-medium text-gray-900">{{ __('Selecione os papèis') }}</legend>
-                    <div class="mt-4 space-y-4 md:grid md:grid-cols-3">
-                        @foreach ($roles as $role)
+            @if ($permissions = $this->permissions)
+                <fieldset class="flex flex-col">
+                    <div class="mt-4 space-y-4 grid grid-cols-3">
+                        @foreach ($permissions as $permission)
                             <div class="flex items-start">
                                 <div class="flex items-center h-5">
-                                    <x-checkbox id="{{ $role->id }}" left-label="{{ $role->name }}"
-                                        value="{{ $role->id }}"
-                                        wire:model.defer="data.access.{{ $role->id }}" />
+                                    <x-checkbox id="{{ $permission->id }}" left-label="{{ $permission->name }}"
+                                     value="{{ $permission->id }}"   wire:model.defer="data.permissions.{{ $permission->id }}" />
                                 </div>
                             </div>
                         @endforeach
