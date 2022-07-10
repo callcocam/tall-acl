@@ -92,7 +92,7 @@ class AclServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/acl.php' => config_path('acl.php'),
-        ], 'tall-form');
+        ], 'tall-acl-config');
 
         
     }
@@ -134,7 +134,7 @@ class AclServiceProvider extends ServiceProvider
      */
     protected function loadMigrations()
     {
-        if (config('report.migrate', true)) {
+        if (config('acl.migrate', false)) {
             $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
