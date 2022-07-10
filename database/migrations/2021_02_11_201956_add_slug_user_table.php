@@ -13,9 +13,14 @@ class AddSlugUserTable extends Migration
      */
     public function up()
     {
+
         Schema::table('users', function (Blueprint $table) {
-            $table->string('slug')->nullable();
-            $table->softDeletes();
+            // if (Schema::hasColumn($table, "slug")) {
+            //     $table->string('slug')->nullable();
+            // }
+            // if (Schema::hasColumn($table, "deleted_at")) {
+            //     $table->softDeletes();
+            // }           
         });
     }
 
