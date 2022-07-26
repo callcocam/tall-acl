@@ -10,7 +10,8 @@
         "livewire/livewire": "^2.5",
         "wireui/wireui": "^1.5",
         "callcocam/tall-schema": "dev-main",
-        "callcocam/tall-sluggable": "dev-main"
+        "callcocam/tall-sluggable": "dev-main",
+        "callcocam/tall-status": "dev-main"
     },
     "autoload": {
         "psr-4": {
@@ -24,6 +25,11 @@
                 "Tall\\Acl\\AclServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "post-root-package-install": [
+            "@php artisan  jetstream:install livewire"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true
