@@ -20,7 +20,7 @@ class PermissionsComponent extends FormComponent
     }
 
     protected function view(){
-        return "tall-acl::livewire.roles.permissions-component";
+        return "acl::livewire.roles.permissions-component";
     }
 
     public function getPermissionsProperty(){

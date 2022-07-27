@@ -20,7 +20,7 @@ class RolesComponent extends FormComponent
     }
 
     protected function view(){
-        return "tall-acl::livewire.users.roles-component";
+        return "acl::livewire.users.roles-component";
     }
 
     public function getRolesProperty(){

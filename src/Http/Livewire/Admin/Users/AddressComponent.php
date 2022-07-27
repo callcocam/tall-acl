@@ -20,7 +20,7 @@ class AddressComponent extends FormComponent
     }
 
     protected function view(){
-        return "tall-acl::livewire.users.address-component";
+        return "acl::livewire.users.address-component";
     }
 
 

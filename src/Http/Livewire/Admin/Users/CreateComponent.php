@@ -32,7 +32,7 @@ class CreateComponent extends FormComponent
     |
     */
     protected function view(){
-        return "tall-acl::livewire.users.create-component";
+        return "acl::livewire.users.create-component";
     }
 
    /*

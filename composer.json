@@ -26,11 +26,6 @@
             ]
         }
     },
-    "scripts": {
-        "post-root-package-install": [
-            "@php artisan  jetstream:install livewire"
-        ]
-    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }

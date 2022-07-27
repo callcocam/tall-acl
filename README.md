@@ -2,7 +2,15 @@
 
 Pacote de contro de acesso
 
+#ALTER MODE USER
+
 #ALTERAR A TABLE SESSIONS
+```
+use Illuminate\Foundation\Auth\User as Authenticatable;
+para
+use Tall\Acl\Models\User as Authenticatable;
+```
+
 
 ```
 Schema::create('sessions', function (Blueprint $table) {
@@ -59,7 +67,7 @@ module.exports = {
    ...
     content: [
         ...
-        './vendor/callcocam/tall-acl/resources/views/**/*.blade.php',
+        './vendor/callcocam/acl/resources/views/**/*.blade.php',
         ....
     ],
 ....

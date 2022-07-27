@@ -38,6 +38,6 @@ class EditComponent extends FormComponent
 
     
     protected function view(){
-        return "tall-acl::livewire.permissions.edit-component";
+        return "acl::livewire.permissions.edit-component";
     }
 }

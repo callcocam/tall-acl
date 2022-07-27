@@ -35,7 +35,7 @@ class EditComponent extends FormComponent
      }
 
     protected function view(){
-        return "tall-acl::livewire.roles.edit-component";
+        return "acl::livewire.roles.edit-component";
     }
    
 }

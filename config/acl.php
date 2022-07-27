@@ -6,6 +6,7 @@
 */
 
 return [
+    "layout"=>"theme::layouts.app",
     'migrate'=>true,
     'tables' => [
 
@@ -83,23 +84,22 @@ return [
     ],
     'routes'=>[
         'roles'=>[
-            'list'=>'tall-acl.admin.roles',
-            'create'=>'tall-acl.admin.role.create',
-            'edit'=>'tall-acl.admin.role.edit',
-            'show'=>'tall-acl.admin.role.show',
+            'list'=>'acl.admin.roles',
+            'create'=>'acl.admin.role.create',
+            'edit'=>'acl.admin.role.edit',
+            'show'=>'acl.admin.role.show',
         ],
         'permissions'=>[
-            'list'=>'tall-acl.admin.permissions',
-            'create'=>'tall-acl.admin.permission.create',
-            'edit'=>'tall-acl.admin.permission.edit',
-            'show'=>'tall-acl.admin.permission.show',
+            'list'=>'acl.admin.permissions',
+            'create'=>'acl.admin.permission.create',
+            'edit'=>'acl.admin.permission.edit',
+            'show'=>'acl.admin.permission.show',
         ],
         'users'=>[
-            'list'=>'tall-acl.admin.users',
-            'create'=>'tall-acl.admin.user.create',
-            'edit'=>'tall-acl.admin.user.edit',
-            'show'=>'tall-acl.admin.user.show',
+            'list'=>'acl.admin.users',
+            'create'=>'acl.admin.user.create',
+            'edit'=>'acl.admin.user.edit',
+            'show'=>'acl.admin.user.show',
         ]
         ],
-        'layout'=>'tall-acl::layouts.app'
 ];

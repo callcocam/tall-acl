@@ -49,6 +49,6 @@ final class ListComponent extends TableComponent
     }
     
     protected function view(){
-        return "tall-acl::livewire.permissions.list-component";
+        return "acl::livewire.permissions.list-component";
     }
 }

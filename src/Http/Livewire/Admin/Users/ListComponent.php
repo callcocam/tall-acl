@@ -76,7 +76,7 @@ final class ListComponent extends TableComponent
 
     
     protected function view(){
-        return "tall-acl::livewire.users.list-component";
+        return "acl::livewire.users.list-component";
     }
 
 }

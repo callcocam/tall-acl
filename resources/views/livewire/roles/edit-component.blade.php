@@ -4,7 +4,7 @@
             <div class="w-full py-2">
                 <x-slot name="header">
                     <!-- Section Hero -->
-                    @include('tall-acl::header', [
+                    @include('acl::header', [
                         'label' => sprintf('Editar - %s', $model->name),
                         'url' => route(config('acl.routes.roles.list')),
                     ])
@@ -14,7 +14,7 @@
                 <div class="mt-5 md:mt-0">
                     <div class="shadow sm:rounded-md ">
                         <form wire:submit.prevent="saveAndStay">
-                            @include('tall-acl::livewire.roles.form')
+                            @include('acl::livewire.roles.form')
 
                             <div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 z-10 space-x-2">
                                 <x-button wire:loading.attr="disabled" squared negative
@@ -41,7 +41,7 @@
                                         </p>
                                     </div>
                                     <div class="mt-5 md:mt-0">
-                                        @livewire('tall-acl::roles.permissions-component', ['model' => $model], key(sprintf('roles-%s', $model->id)))
+                                        @livewire('acl::roles.permissions-component', ['model' => $model], key(sprintf('roles-%s', $model->id)))
                                     </div>
                                 </div>
                             </div>

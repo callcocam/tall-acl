@@ -4,7 +4,7 @@
             <div class="w-full py-2">
                 <x-slot name="header">
                     <!-- Section Hero -->
-                    @include('tall-acl::header', ['label' => 'Permissões', 'url'=>route(config('acl.routes.roles.list'))])
+                    @include('acl::header', ['label' => 'Permissões', 'url'=>route(config('acl.routes.roles.list'))])
                 </x-slot>
             </div>
             <div class="flex w-full flex-col">

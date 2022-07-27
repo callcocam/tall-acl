@@ -4,14 +4,14 @@
             <div class="w-full py-2">
                 <x-slot name="header">
                     <!-- Section Hero -->
-                    @include('tall-acl::header', ['label'=>"Cadastrar","url"=>route(config('acl.routes.permissions.list'))])
+                    @include('acl::header', ['label'=>"Cadastrar","url"=>route(config('acl.routes.permissions.list'))])
                 </x-slot>
             </div>
             <div   class="flex flex-col">
                 <div class="mt-5 md:mt-0">
                     <form wire:submit.prevent="saveAndStay">
                         <div class="shadow sm:rounded-md ">                            
-                        @include('tall-acl::livewire.permissions.form')
+                        @include('acl::livewire.permissions.form')
                         </div>
                         <div class="flex justify-end px-4 py-3 bg-gray-50 text-right sm:px-6 z-10 space-x-2">
                             <x-button wire:loading.attr="disabled" squared negative

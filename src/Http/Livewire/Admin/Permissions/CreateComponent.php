@@ -52,6 +52,6 @@ class CreateComponent extends FormComponent
     }
     
     protected function view(){
-        return "tall-acl::livewire.permissions.create-component";
+        return "acl::livewire.permissions.create-component";
     }
 }

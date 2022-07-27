@@ -18,15 +18,15 @@ use Symfony\Component\Finder\Finder;
 
 class AclServiceProvider extends ServiceProvider
 {
-    /**
+  /**
      * Register services.
      *
      * @return void
      */
     public function register()
     {
-       
-        $this->app->register(RouteServiceProvider::class);
+        if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class))
+           $this->app->register(RouteServiceProvider::class);
     }
 
    /**
@@ -36,34 +36,35 @@ class AclServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-               
-        $this->bootViews();
-        $this->publishConfig();
-        $this->loadConfigs();
-        $this->publishMigrations();
-        $this->loadMigrations();
-        $this->registerGates();
+        if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class)){
+            $this->bootViews();
+            $this->publishConfig();
+            $this->loadConfigs();
+            $this->publishMigrations();
+            $this->loadMigrations();
+            $this->registerGates();
+        }
     }
 
     protected function bootViews()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tall-acl');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'acl');
        
-        Livewire::component( 'tall-acl::users.roles-component', \Tall\Acl\Http\Livewire\Admin\Users\RolesComponent::class);
-        Livewire::component( 'tall-acl::users.address-component', \Tall\Acl\Http\Livewire\Admin\Users\AddressComponent::class);
-        Livewire::component( 'tall-acl::roles.permissions-component', \Tall\Acl\Http\Livewire\Admin\Roles\PermissionsComponent::class);
+        Livewire::component( 'acl::users.roles-component', \Tall\Acl\Http\Livewire\Admin\Users\RolesComponent::class);
+        Livewire::component( 'acl::users.address-component', \Tall\Acl\Http\Livewire\Admin\Users\AddressComponent::class);
+        Livewire::component( 'acl::roles.permissions-component', \Tall\Acl\Http\Livewire\Admin\Roles\PermissionsComponent::class);
         
-        Livewire::component( 'tall-acl::users.list-component', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class);
-        Livewire::component( 'tall-acl::roles.list-component', \Tall\Acl\Http\Livewire\Admin\Roles\ListComponent::class);
-        Livewire::component( 'tall-acl::permissions.list-component', \Tall\Acl\Http\Livewire\Admin\Permissions\ListComponent::class);
+        Livewire::component( 'acl::users.list-component', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class);
+        Livewire::component( 'acl::roles.list-component', \Tall\Acl\Http\Livewire\Admin\Roles\ListComponent::class);
+        Livewire::component( 'acl::permissions.list-component', \Tall\Acl\Http\Livewire\Admin\Permissions\ListComponent::class);
 
-        Livewire::component( 'tall-acl::users.create-component', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class);
-        Livewire::component( 'tall-acl::roles.create-component', \Tall\Acl\Http\Livewire\Admin\Roles\CreateComponent::class);
-        Livewire::component( 'tall-acl::permissions.create-component', \Tall\Acl\Http\Livewire\Admin\Permissions\CreateComponent::class);
+        Livewire::component( 'acl::users.create-component', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class);
+        Livewire::component( 'acl::roles.create-component', \Tall\Acl\Http\Livewire\Admin\Roles\CreateComponent::class);
+        Livewire::component( 'acl::permissions.create-component', \Tall\Acl\Http\Livewire\Admin\Permissions\CreateComponent::class);
 
-        Livewire::component( 'tall-acl::users.edit-component', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class);
-        Livewire::component( 'tall-acl::roles.edit-component', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class);
-        Livewire::component( 'tall-acl::permissions.edit-component', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class);
+        Livewire::component( 'acl::users.edit-component', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class);
+        Livewire::component( 'acl::roles.edit-component', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class);
+        Livewire::component( 'acl::permissions.edit-component', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class);
     }
     /**
      * Register the permission gates.
@@ -92,7 +93,7 @@ class AclServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/acl.php' => config_path('acl.php'),
-        ], 'tall-acl-config');
+        ], 'acl-config');
 
         
     }
