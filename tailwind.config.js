@@ -1,15 +1,7 @@
-const defaultTheme = require('tailwindcss/defaultTheme');
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: [           
-        './resources/views/**/*.blade.php'
+    content: [
+      "./src/**/*.{php,html,js,jsx,ts,tsx,vue}",
+      "./resources/**/*.{php,html,js,jsx,ts,tsx,vue}",
     ],
-    theme: {
-        extend: {},
-    },
-    variants: {
-        extend: {
-            opacity: ['responsive', 'hover', 'focus', 'disabled'],
-        },
-    },
-    plugins: [],
 };

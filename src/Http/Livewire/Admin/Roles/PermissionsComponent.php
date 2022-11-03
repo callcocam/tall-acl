@@ -8,7 +8,6 @@ namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
 use Tall\Acl\Models\Role;
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
 
 class PermissionsComponent extends FormComponent
 {
@@ -18,16 +17,15 @@ class PermissionsComponent extends FormComponent
         $this->setFormProperties($model); 
         
     }
-
-    protected function view(){
-        return "acl::livewire.roles.permissions-component";
+    protected function  view($sufix="-component"){
+        return "tall::roles.permissions";
     }
 
     public function getPermissionsProperty(){
         return \Tall\Acl\Models\Permission::query()->get();
     }
 
-    public function success()
+    public function success($callback = null)
     { 
         $this->model->permissions()->sync(array_filter(data_get($this->data,'permissions',[])));
         $this->notification()->success(

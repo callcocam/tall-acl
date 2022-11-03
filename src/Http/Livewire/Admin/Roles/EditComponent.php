@@ -25,16 +25,10 @@ class EditComponent extends FormComponent
     public function mount(?Role $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->setFormProperties($model); // $role from hereon, called $this->model
+        $this->setFormProperties($model, Route::currentRouteName());
     }
 
-    protected function rules(){
-        return [
-             'name'=>'required'
-        ];
-     }
-
-    protected function view(){
+    protected function  view($sufix="-component"){
         return "acl::livewire.roles.edit-component";
     }
    

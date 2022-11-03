@@ -8,20 +8,9 @@ namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
 use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\TableComponent;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 final class ListComponent extends TableComponent
 {
-    use AuthorizesRequests;
-    
-    public function mount()
-    {
-        $this->authorize(Route::currentRouteName());
-    
-        \Tall\Acl\LoadRouterHelper::save();
-    }
-
     
     /*
     |--------------------------------------------------------------------------
@@ -34,21 +23,7 @@ final class ListComponent extends TableComponent
         return Permission::query();
     }
     
-    /*
-    |--------------------------------------------------------------------------
-    |  Features tableAttr
-    |--------------------------------------------------------------------------
-    | Inicia as configurações basica do table
-    |
-    */
-    protected function tableAttr(): array
-    {
-        return [
-           'tableTitle' => __('Permissions'),
-       ];
-    }
-    
-    protected function view(){
-        return "acl::livewire.permissions.list-component";
+    protected function  view($sufix="-component"){
+        return "tall::permissions.list";
     }
 }

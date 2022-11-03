@@ -6,10 +6,8 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Users;
 
-use App\Models\Address;
 use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
 
 class AddressComponent extends FormComponent
 {
@@ -19,8 +17,8 @@ class AddressComponent extends FormComponent
         $this->setFormProperties($model->address()->firstOrCreate()); 
     }
 
-    protected function view(){
-        return "acl::livewire.users.address-component";
+    protected function  view($sufix="-component"){
+        return "tall::users.address";
     }
 
 

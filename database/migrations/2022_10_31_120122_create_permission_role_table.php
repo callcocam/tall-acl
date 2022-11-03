@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionRoleTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePermissionRoleTable extends Migration
      */
     public function up()
     {
-        $name = config('acl.tables.permission_role','permission_role');
+        $name = config('acl.tables.permission_user','permission_user');
         Schema::create($name, function (Blueprint $table) {
-            $table->foreignUuid('permission_id')->constrained('permissions')->onDelete('cascade');
-            $table->foreignUuid('role_id')->constrained('roles')->onDelete('cascade');
+            $table->uuid('permission_id');
+            $table->uuid('user_id');
             $table->timestamps();
         });
     }
@@ -28,7 +28,6 @@ class CreatePermissionRoleTable extends Migration
      */
     public function down()
     {
-        $name = config('acl.tables.permission_role','permission_role');
-        Schema::dropIfExists($name);
+        Schema::dropIfExists('permission_role');
     }
-}
+};

@@ -7,8 +7,9 @@
 
 namespace Tall\Acl;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Tall\Acl\Models\Permission;
-use Illuminate\Support\Facades\Artisan;
 
 class LoadRouterHelper
 {
@@ -41,7 +42,7 @@ class LoadRouterHelper
 
             if(!Permission::query()->where('slug', $permission)->count()){
                 $permissionArr = explode(".", $permission);
-                $last = \Arr::last($permissionArr);
+                $last = Arr::last($permissionArr);
                 if(!in_array($last, ['edit','create','show'])){
                     $last = "index";
                 }
@@ -69,7 +70,7 @@ class LoadRouterHelper
 
         $options = [];
 
-        foreach (\Route::getRoutes() as $route) {
+        foreach (Route::getRoutes() as $route) {
 
             if (isset($route->action['as'])) :
 

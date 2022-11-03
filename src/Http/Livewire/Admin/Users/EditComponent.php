@@ -24,8 +24,8 @@ class EditComponent extends FormComponent
     public $basic = true;
     
    
-    protected function view(){
-        return "acl::livewire.users.edit-component";
+    protected function  view($sufix="-component"){
+        return "tall::users.edit";
     }
     /*
     |--------------------------------------------------------------------------
@@ -37,22 +37,19 @@ class EditComponent extends FormComponent
     public function mount(?User $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->setFormProperties($model); // $user from hereon, called $this->model
-        data_set($this->data,'data.password',"");
-        data_set($this->data,'data.current_password',"");
-        data_set($this->data,'data.password_confirmation',"");
+        $this->setFormProperties($model);
     }
 
 
     
-    protected function rules(){
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users','email')->ignore($this->model->id)]
-        ];
-     }
+    // protected function rules(){
+    //     return [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'email', 'max:255', Rule::unique('users','email')->ignore($this->model->id)]
+    //     ];
+    //  }
 
-    protected function success(){
+    protected function success($callback=null){
         data_set($input,'password',data_get($this->data, "password"));
         data_set($input,'current_password',data_get($this->data, "current_password"));
         data_set($input,'password_confirmation',data_get($this->data, "password_confirmation"));

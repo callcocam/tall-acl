@@ -6,8 +6,7 @@
 */
 
 return [
-    "layout"=>"theme::layouts.app",
-    'migrate'=>true,
+    'migrate'=>false,
     'tables' => [
 
         /*
@@ -38,8 +37,8 @@ return [
         | permissões para funções e usuários e atribuição de funções aos usuários.
         */
 
-        'role' => \Tall\Acl\Models\Role::class,
-        'permission' => \Tall\Acl\Models\Permission::class
+        'role' => \App\Models\Role::class,
+        'permission' => \App\Models\Permission::class
 
     ],
     /*
@@ -79,27 +78,4 @@ return [
         'tag' => 'acl',
 
     ],
-    'roles'=>[
-        'inscription'=>env("ACL_ROLE_INSCRIPTION",'fazer-inscricoes')
-    ],
-    'routes'=>[
-        'roles'=>[
-            'list'=>'acl.admin.roles',
-            'create'=>'acl.admin.role.create',
-            'edit'=>'acl.admin.role.edit',
-            'show'=>'acl.admin.role.show',
-        ],
-        'permissions'=>[
-            'list'=>'acl.admin.permissions',
-            'create'=>'acl.admin.permission.create',
-            'edit'=>'acl.admin.permission.edit',
-            'show'=>'acl.admin.permission.show',
-        ],
-        'users'=>[
-            'list'=>'acl.admin.users',
-            'create'=>'acl.admin.user.create',
-            'edit'=>'acl.admin.user.edit',
-            'show'=>'acl.admin.user.show',
-        ]
-        ],
 ];

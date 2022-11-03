@@ -10,10 +10,8 @@ use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Validation\Rule;
 
 class CreateComponent extends FormComponent
 {
@@ -31,8 +29,8 @@ class CreateComponent extends FormComponent
     | Inicia as configurações basica do de nomes e rotas
     |
     */
-    protected function view(){
-        return "acl::livewire.users.create-component";
+    protected function  view($sufix="-component"){
+        return "tall::users.create-component";
     }
 
    /*
@@ -49,15 +47,15 @@ class CreateComponent extends FormComponent
     }
 
 
-    protected function rules(){
-        return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users','email')],
-            'password' => $this->passwordRules(),
-        ];
-     }
+    // protected function rules(){
+    //     return [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'email', 'max:255', Rule::unique('users','email')],
+    //         'password' => $this->passwordRules(),
+    //     ];
+    //  }
 
-    protected function success(){
+    protected function success($callback=null){
 
         $this->data['password'] =  Hash::make($this->data['password']);  
         return parent::success();
@@ -73,6 +71,6 @@ class CreateComponent extends FormComponent
     */
     public function saveAndGoBackResponse()
     {
-        return redirect()->route(config("acl.routes.users.edit"),$this->model);
+        return redirect()->route('admin.userr.create',$this->model);
     }
 }

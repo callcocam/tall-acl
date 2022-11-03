@@ -26,14 +26,8 @@ class CreateComponent extends FormComponent
     public function mount(?Role $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->setFormProperties($model); // $role from hereon, called $this->model
+        $this->setFormProperties($model,Route::currentRouteName()); 
     }
-
-    protected function rules(){
-        return [
-             'name'=>'required'
-        ];
-     }
     
     /*
     |--------------------------------------------------------------------------
@@ -47,10 +41,10 @@ class CreateComponent extends FormComponent
      */
     public function saveAndGoBackResponse()
     {
-          return redirect()->route(config("acl.routes.roles.edit"), $this->model);
+          return redirect()->route('admin.role.edit', $this->model);
     }
     
-    protected function view(){
-        return "acl::livewire.roles.create-component";
+    protected function  view($sufix="-component"){
+        return "tall::roles.create";
     }
 }

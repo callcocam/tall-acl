@@ -21,34 +21,6 @@ final class ListComponent extends TableComponent
        
     }
         
-    
-    public function ordering(){
-        return 1;
-    }
-
-    //     /*
-    // |--------------------------------------------------------------------------
-    // |  Features label
-    // |--------------------------------------------------------------------------
-    // | Label visivel no me menu
-    // |
-    // */
-    public function label(){
-      
-        return "Usuários";
-     }
-
-    /*
-    |--------------------------------------------------------------------------
-    |  Features route
-    |--------------------------------------------------------------------------
-    | Rota create do crud, cadastrar um novo registro
-    |
-    */
-    public function getCreateProperty()
-    {
-        return config("acl.routes.users.create");
-    }
     /*
     |--------------------------------------------------------------------------
     |  Features query
@@ -60,23 +32,10 @@ final class ListComponent extends TableComponent
          return User::query();
     }
 
-     /*
-    |--------------------------------------------------------------------------
-    |  Features tableAttr
-    |--------------------------------------------------------------------------
-    | Inicia as configurações basica do table
-    |
-    */
-    protected function tableAttr(): array
-    {
-        return [
-           'tableTitle' => __('Users'),
-       ];
-    }
 
     
-    protected function view(){
-        return "acl::livewire.users.list-component";
+    protected function view($component="-component"){
+        return "tall::users.list-component";
     }
 
 }

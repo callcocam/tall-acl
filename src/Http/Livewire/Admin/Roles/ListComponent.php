@@ -19,18 +19,7 @@ final class ListComponent extends TableComponent
     {
         $this->authorize(Route::currentRouteName());
     }
-      
-    /*
-    |--------------------------------------------------------------------------
-    |  Features route
-    |--------------------------------------------------------------------------
-    | Rota create do crud, cadastrar um novo registro
-    |
-    */
-    public function getCreateProperty()
-    {
-        return config("acl.routes.roles.create");
-    }
+    
     /*
     |--------------------------------------------------------------------------
     |  Features query
@@ -42,26 +31,7 @@ final class ListComponent extends TableComponent
         return Role::query();
     }
 
-   
-     /*
-    |--------------------------------------------------------------------------
-    |  Features tableAttr
-    |--------------------------------------------------------------------------
-    | Inicia as configurações basica do table
-    |
-    */
-    protected function tableAttr(): array
-    {
-        return [
-           'tableTitle' => __('Role'),
-       ];
-    }
-
-    public function ordering(){
-        return 4;
-    }
-
-    protected function view(){
-        return "acl::livewire.roles.list-component";
+    protected function  view($sufix="-component"){
+        return "tall::roles.list";
     }
 }

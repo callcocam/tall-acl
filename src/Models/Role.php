@@ -11,7 +11,6 @@ namespace Tall\Acl\Models;
 use Tall\Acl\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Str;
 use Tall\Acl\Concerns\HasPermissions;
 use Tall\Acl\Contracts\Role as ContractRole;
 use Tall\Acl\Concerns\UsesLandlordConnection;

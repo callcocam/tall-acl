@@ -30,14 +30,9 @@ class EditComponent extends FormComponent
     }
 
     
-    protected function rules(){
-        return [
-             'name'=>'required'
-        ];
-     }
 
     
-    protected function view(){
-        return "acl::livewire.permissions.edit-component";
+    protected function  view($sufix="-component"){
+        return "tall::permissions.edit";
     }
 }

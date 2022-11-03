@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleUserTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
-        $name = config('acl.tables.role_user', 'role_user');
+        $name = config('acl.tables.permission_user','permission_user');
         Schema::create($name, function (Blueprint $table) {
-            $table->uuid('role_id');
+            $table->uuid('permission_id');
             $table->uuid('user_id');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('permission_user');
     }
-}
+};
