@@ -20,15 +20,16 @@ Route::middleware([
     'verified'
 ])->prefix('admin')->group(function () {
 
+    Route::get('/minha-conta', \Tall\Acl\Http\Livewire\Admin\Profile\ShowComponent::class)->name('admin.profile.show');
     Route::get('/users', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class)->name('admin.users');
-    Route::get('/user/cadastrar', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class)->name('admin.user.create');
-    Route::get('/user/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class)->name('admin.user.edit');
+    Route::get('/user/cadastrar', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class)->name('admin.users.create');
+    Route::get('/user/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class)->name('admin.users.edit');
 
     Route::get('/roles', \Tall\Acl\Http\Livewire\Admin\Roles\ListComponent::class)->name('admin.roles');  
-    Route::get('/role/cadastrar', \Tall\Acl\Http\Livewire\Admin\Roles\CreateComponent::class)->name('admin.role.create');
-    Route::get('/role/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class)->name('admin.role.edit');
+    Route::get('/role/cadastrar', \Tall\Acl\Http\Livewire\Admin\Roles\CreateComponent::class)->name('admin.roles.create');
+    Route::get('/role/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class)->name('admin.roles.edit');
 
-    Route::get('/permissions', \Tall\Acl\Http\Livewire\Admin\Permissions\ListComponent::class)->name('admin.perrmisions');
-    Route::get('/permission/cadastrar', \Tall\Acl\Http\Livewire\Admin\Permissions\CreateComponent::class)->name('admin.permission.create');
-    Route::get('/permission/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class)->name('admin.permission.edit');
+    Route::get('/permissions', \Tall\Acl\Http\Livewire\Admin\Permissions\ListComponent::class)->name('admin.permissions');
+    Route::get('/permission/cadastrar', \Tall\Acl\Http\Livewire\Admin\Permissions\CreateComponent::class)->name('admin.permissions.create');
+    Route::get('/permission/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class)->name('admin.permissions.edit');
 });

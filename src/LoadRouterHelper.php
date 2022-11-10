@@ -51,7 +51,7 @@ class LoadRouterHelper
                     'name' => $name,
                     'slug' => $permission,
                     'group' => $last,
-                    'status_id' => null,
+                    'status' => 'published',
                     'description' => $name
                 ]);
             }

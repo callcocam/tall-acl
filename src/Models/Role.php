@@ -28,11 +28,12 @@ class Role extends AbstractModel implements ContractRole
         'id'
     ];
 
+    protected $with = ['access'];
     protected $appends = ['permissions'];
 
     public function getPermissionsAttribute()
     {
-        return $this->permissions()->pluck('id','id')->toArray();
+        return array_values($this->permissions()->pluck('id','id')->toArray());
     }
 
     public function access()

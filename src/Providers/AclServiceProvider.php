@@ -6,11 +6,15 @@
 */
 namespace Tall\Acl\Providers;
 
+use Tall\Acl\Models\Permission as ModelsPermission;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Livewire;
 use Tall\Acl\Console\Commands\AclCommand;
+use Tall\Acl\Contracts\Permission;
+use Tall\Acl\Contracts\Role;
+use Tall\Acl\Models\Role as ModelsRole;
 
 class AclServiceProvider extends ServiceProvider
 {
@@ -23,6 +27,19 @@ class AclServiceProvider extends ServiceProvider
     {
         if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class))
            $this->app->register(RouteServiceProvider::class);
+
+           if(class_exists('App\Models\Permission')){
+               $this->app->bind(Permission::class, 'App\Models\Permission');
+           }
+           else{
+                $this->app->bind(Permission::class, ModelsPermission::class);
+           }
+           if(class_exists('App\Models\Role')){
+            $this->app->bind(Role::class, 'App\Models\Role');
+        }
+        else{
+             $this->app->bind(Role::class, ModelsRole::class);
+        }
     }
 
    /**
@@ -40,6 +57,13 @@ class AclServiceProvider extends ServiceProvider
             $this->publishMigrations();
             $this->loadMigrations();
             $this->registerGates();
+        }
+        if(class_exists('\Tall\Theme\Providers\ThemeServiceProvider')){
+            \Tall\Theme\Providers\ThemeServiceProvider::configureDynamicComponent(__DIR__."/../../resources/views/components");
+
+            if(is_dir(resource_path("views/vendor/tall/acl/components"))){
+                \Tall\Theme\Providers\ThemeServiceProvider::configureDynamicComponent(resource_path("views/vendor/tall/acl/components"));
+            }
         }
     }
 
@@ -62,6 +86,18 @@ class AclServiceProvider extends ServiceProvider
         Livewire::component( 'tall::users.edit-component', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class);
         Livewire::component( 'tall::roles.edit-component', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class);
         Livewire::component( 'tall::permissions.edit-component', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class);
+           
+        //PRFILE ADMIN
+        Livewire::component( 'tall::admin.profile.show-component', \Tall\Acl\Http\Livewire\Admin\Profile\ShowComponent::class);
+        Livewire::component( 'tall::admin.profile.update-profile-information-form', \Tall\Acl\Http\Livewire\Admin\Profile\UpdateProfileInformationForm::class);
+        Livewire::component( 'tall::admin.profile.update-profile-photo-form', \Tall\Acl\Http\Livewire\Admin\Profile\UpdateProfilePhotoForm::class);
+        Livewire::component( 'tall::admin.profile.update-password-form', \Tall\Acl\Http\Livewire\Admin\Profile\UpdatePasswordForm::class);
+        Livewire::component( 'tall::admin.profile.two-factor-authentication-form', \Tall\Acl\Http\Livewire\Admin\Profile\TwoFactorAuthenticationForm::class);
+        Livewire::component( 'tall::admin.profile.logout-other-browser-sessions-form', \Tall\Acl\Http\Livewire\Admin\Profile\LogoutOtherBrowserSessionsForm::class);
+        Livewire::component( 'tall::admin.profile.delete-user-form', \Tall\Acl\Http\Livewire\Admin\Profile\DeleteUserForm::class);
+        
+        
+        Livewire::component( 'tall::users.delete-component', \Tall\Acl\Http\Livewire\Admin\Users\DeleteComponent::class);
     }
     /**
      * Register the permission gates.

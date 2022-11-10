@@ -6,11 +6,43 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
+use Illuminate\Support\Facades\Route;
 use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\TableComponent;
+use Tall\Acl\LoadRouterHelper;
+use Tall\Cms\Models\Make;
+use Tall\Table\Fields\Column;
 
 final class ListComponent extends TableComponent
 {
+
+    public function mount()
+    {
+        LoadRouterHelper::save();
+
+        $this->setConfigProperties(new Make([
+            'name'=>'Permissions',
+            'route'=>'admin.permissions'
+        ]));
+        $this->setUp(Route::currentRouteName());
+    }
+    
+     
+    /**
+     * Função para trazer uma lista de colunas (opcional)
+     * Geralmente usada com um component de table dinamicas
+     * Voce pode sobrescrever essas informações no component filho 
+     */
+    public function columns(){
+        return [
+            Column::make('Name'),
+            Column::actions([
+                Column::make('Edit')->icon('pencil')->route('admin.permissions.edit'),
+                Column::make('Delete')->icon('trash')->route('admin.permissions.delete'),
+            ]),
+
+        ];
+    }
     
     /*
     |--------------------------------------------------------------------------
@@ -24,6 +56,6 @@ final class ListComponent extends TableComponent
     }
     
     protected function  view($sufix="-component"){
-        return "tall::permissions.list";
+        return "tall::permissions.list-component";
     }
 }

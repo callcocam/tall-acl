@@ -10,6 +10,9 @@ use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tall\Acl\Contracts\Permission as ContractsPermission;
+use Tall\Cms\Models\Make;
+use Tall\Form\Fields\Field;
 
 class EditComponent extends FormComponent
 {
@@ -26,13 +29,27 @@ class EditComponent extends FormComponent
     public function mount(?Permission $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->setFormProperties($model); // $permission from hereon, called $this->model
+        
+        $this->setFormProperties(app(ContractsPermission::class)->find($model->id));
+
+        $this->setConfigProperties(new Make([
+            'name'=>'Permissions',
+            'route'=>'admin.permissions'
+        ]));
     }
 
-    
-
+    protected function fields()
+    {
+       
+        return [
+            Field::make('Nome da role', 'name')->rules('required'),
+            Field::quill('Descrição','description'),
+            Field::date('Data de criação','created_at')->span(6),
+            Field::date('Última atualização', 'updated_at')->span(6)
+        ];
+    }
     
     protected function  view($sufix="-component"){
-        return "tall::permissions.edit";
+        return "tall::permissions.edit-component";
     }
 }

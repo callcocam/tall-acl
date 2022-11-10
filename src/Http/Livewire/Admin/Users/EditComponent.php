@@ -9,11 +9,10 @@ namespace Tall\Acl\Http\Livewire\Admin\Users;
 use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Validation\Rule;
+use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
+use Tall\Form\Fields\Field;
 
 class EditComponent extends FormComponent
 {
@@ -21,11 +20,13 @@ class EditComponent extends FormComponent
 
     use PasswordValidationRules;
 
+    public $photo;
+
     public $basic = true;
     
    
     protected function  view($sufix="-component"){
-        return "tall::users.edit";
+        return "tall::users.edit-component";
     }
     /*
     |--------------------------------------------------------------------------
@@ -37,50 +38,34 @@ class EditComponent extends FormComponent
     public function mount(?User $model)
     {
         $this->authorize(Route::currentRouteName());
-        $this->setFormProperties($model);
+        $this->setFormProperties($model, Route::currentRouteName());
     }
 
-
-    
-    // protected function rules(){
-    //     return [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'email', 'max:255', Rule::unique('users','email')->ignore($this->model->id)]
-    //     ];
-    //  }
-
-    protected function success($callback=null){
-        data_set($input,'password',data_get($this->data, "password"));
-        data_set($input,'current_password',data_get($this->data, "current_password"));
-        data_set($input,'password_confirmation',data_get($this->data, "password_confirmation"));
-        if(collect($input)->filter(function($item){
-            return !is_null($item);
-        })->count()){
-            $user = $this->model;
-            Validator::make($input, [
-                'current_password' => ['required', 'string'],
-                'password' => $this->passwordRules(),
-            ])->after(function ($validator) use ($user, $input) {
-                if (!Hash::check(data_get($input,'current_password'), $user->password)) {
-                    $validator->errors()->add('data.current_password', __('The provided password does not match your current password.'));
-                }
-            })->validate();       
-            $this->data['password'] =Hash::make(data_get($input,'password')); 
-            unset($this->data['current_password'], $this->data['password_confirmation']);       
-            $input['password'] =  "";
-            $input['current_password'] = "";
-            $input['password_confirmation'] ="";            
-            
-            if(parent::success()){
-                $this->data['password'] =""; 
-                return true;
-            }
-            $this->data['password'] =""; 
-            return false;
-        }
-        else{
-          return parent::success();
-        }
+    protected function fields()
+    {
+       
+        return [
+            Field::make('Nome Completo', 'name')->span(6)->rules('required'),
+            Field::make('E-Mail','email')->span(6)->rules('required'),
+            Field::textarea('Informações adicional','description'),
+            Field::date('Data de criação','created_at')->span(6),
+            Field::date('Última atualização', 'updated_at')->span(6),
+        ];
     }
+    /**
+     * Update the user's profile information.
+     *
+     * @param  \Laravel\Fortify\Contracts\UpdatesUserProfileInformation  $updater
+     * @return void
+     */
+    public function updateProfileInformation(UpdatesUserProfileInformation $updater)
+    {
+        $this->resetErrorBag();
+
+        $updater->update($this->model,array_merge($this->form_data, ['photo' => $this->photo]) ?? []);
+
+        return redirect()->route('admin.user.edit', $this->model);
+    }
+
     
 }

@@ -10,10 +10,11 @@ use App\Models\User;
 use Tall\Acl\Http\Livewire\TableComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Tall\Orm\Traits\Kill;
 
 final class ListComponent extends TableComponent
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, Kill;
     
     public function mount()
     {

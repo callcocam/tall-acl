@@ -11,6 +11,7 @@ use Tall\Orm\Http\Livewire\TableComponent as TableTableComponent;
 
 abstract class TableComponent extends TableTableComponent
 {
-   
+  
+ 
 
 }

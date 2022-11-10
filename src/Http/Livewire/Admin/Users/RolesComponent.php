@@ -19,15 +19,15 @@ class RolesComponent extends FormComponent
         
     }
 
-    protected function view(){
-        return "acl::livewire.users.roles-component";
+    protected function view($component = '-component'){
+        return "tall::users.roles-component";
     }
 
     public function getRolesProperty(){
         return \Tall\Acl\Models\Role::query()->get();
     }
 
-    public function success()
+    public function success($callback = null)
     { 
         $this->model->roles()->sync(array_filter(data_get($this->data,'access',[])));
         $this->notification()->success(

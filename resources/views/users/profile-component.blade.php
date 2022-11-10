@@ -1,9 +1,9 @@
-<div>
+<div class="col-span-12">
     <div class="flex flex-col">
         <div class="p-2">
             <div class="px-4 sm:px-0">
                 <h3 class="text-2xl font-medium leading-6 text-gray-900">{{ __('Perfil') }}</h3>
-                <p class="mt-1 text-sm text-gray-600">
+                <p class="mt-1 text-sm">
                     {{ __('Essas informações serão exibidas publicamente, portanto, tome cuidado com o que você compartilha.') }}
                 </p>
             </div>
@@ -15,49 +15,81 @@
 
                         <div class="grid grid-cols-4 gap-4">
                             <div class="col-span-4 sm:col-span-2">
-                                <x-input wire:model.defer="data.name" label="{{ __('Nome') }}"
-                                    placeholder="{{ __('Nome') }}" />
+                                @if ($field = form('name', $fields))
+                                    <x-tall-label :field="$field">
+                                        <x-dynamic-component component="tall-{{ $field->component }}"
+                                            :field="$field" />
+                                        <x-tall-input-error :for="$field->key" />
+                                    </x-tall-label>
+                                @endif
                             </div>
                             <div class="col-span-4 sm:col-span-2">
-                                <x-input wire:model.defer="data.email" label="{{ __('E-Mail') }}"
-                                    placeholder="{{ __('E-Mail') }}" />
+                                @if ($field = form('email', $fields))
+                                    <x-tall-label :field="$field">
+                                        <x-dynamic-component component="tall-{{ $field->component }}"
+                                            :field="$field" />
+                                        <x-tall-input-error :for="$field->key" />
+                                    </x-tall-label>
+                                @endif
                             </div>
                         </div>
                         {{-- incluir uma template blade na resources/views/includes/user.blade.php --}}
                         {{-- para campos adicionais --}}
                         @includeIf('includes.users')
-                        
+
                         <div class="grid grid-cols-6 gap-4">
 
                             @if ($model->exists)
                                 <div class="col-span-4 sm:col-span-2">
-                                    <x-input type="password" wire:model.defer="data.current_password" label="{{ __('Current Password') }}"
-                                    placeholder="{{ __('Current Password') }}" />
+                                    @if ($field = form('name', $fields))
+                                        <x-tall-label :field="$field">
+                                            <x-dynamic-component component="tall-{{ $field->component }}"
+                                                :field="$field" />
+                                            <x-tall-input-error :for="$field->key" />
+                                        </x-tall-label>
+                                    @endif
                                 </div>
                                 <div class="col-span-4">
                                     <div class="grid grid-cols-2  gap-y-3 gap-x-4">
                                         <div class="col-span-1">
-                                            <x-input type="password" wire:model.defer="data.password"
-                                                label="{{ __('New Password') }}"
-                                                placeholder="{{ __('New Password') }}" />
+                                            @if ($field = form('name', $fields))
+                                                <x-tall-label :field="$field">
+                                                    <x-dynamic-component component="tall-{{ $field->component }}"
+                                                        :field="$field" />
+                                                    <x-tall-input-error :for="$field->key" />
+                                                </x-tall-label>
+                                            @endif
                                         </div>
                                         <div class="col-span-1 ">
-                                            <x-input type="password" wire:model.defer="data.password_confirmation"
-                                                label="{{ __('Password Confirmation') }}"
-                                                placeholder="{{ __('Password Confirmation') }}" />
+                                            @if ($field = form('password_confirmation', $fields))
+                                                <x-tall-label :field="$field">
+                                                    <x-dynamic-component component="tall-{{ $field->component }}"
+                                                        :field="$field" />
+                                                    <x-tall-input-error :for="$field->key" />
+                                                </x-tall-label>
+                                            @endif
                                         </div>
                                     </div>
-                                    <x-errors only="password|current_password" />
+                                    <x-tall-errors only="password|current_password" />
                                 </div>
                             @else
                                 <div class="col-span-4 sm:col-span-4">
-                                    <x-input type="password" wire:model.defer="data.password" label="{{ __('Password') }}"
-                                        placeholder="{{ __('Password') }}" />
+                                    @if ($field = form('password', $fields))
+                                        <x-tall-label :field="$field">
+                                            <x-dynamic-component component="tall-{{ $field->component }}"
+                                                :field="$field" />
+                                            <x-tall-input-error :for="$field->key" />
+                                        </x-tall-label>
+                                    @endif
                                 </div>
                                 <div class="col-span-4 sm:col-span-2">
-                                    <x-input type="password" wire:model.defer="data.password_confirmation"
-                                        label="{{ __('Password Confirmation') }}"
-                                        placeholder="{{ __('Password Confirmation') }}" />
+                                    @if ($field = form('password_confirmation', $fields))
+                                        <x-tall-label :field="$field">
+                                            <x-dynamic-component component="tall-{{ $field->component }}"
+                                                :field="$field" />
+                                            <x-tall-input-error :for="$field->key" />
+                                        </x-tall-label>
+                                    @endif
                                 </div>
                             @endif
                         </div>
@@ -68,8 +100,8 @@
                                 </label>
                                 <div class="mt-1 flex items-center">
                                     <span class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                                        @if (data_get($data, 'profile_photo_path') instanceof \Livewire\TemporaryUploadedFile)
-                                            <img src="{{ data_get($data, 'profile_photo_path')->temporaryUrl() }}"
+                                        @if (data_get($form_data, 'profile_photo_path') instanceof \Livewire\TemporaryUploadedFile)
+                                            <img src="{{ data_get($form_data, 'profile_photo_path')->temporaryUrl() }}"
                                                 alt="">
                                         @else
                                             @if ($profile_photo_url = \Arr::get($model, 'profile_photo_url'))
@@ -93,14 +125,18 @@
                             </div>
                         @endif
                         <div>
-                            <x-textarea wire:model.defer="data.description" label="{{ __('Description') }}"
-                                placeholder="{{ __('Description') }}" />
+                            @if ($field = form('description', $fields))
+                                <x-tall-label :field="$field">
+                                    <x-dynamic-component component="tall-{{ $field->component }}" :field="$field" />
+                                    <x-tall-input-error :for="$field->key" />
+                                </x-tall-label>
+                            @endif
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                        <x-button type="submit" spinner primary squared>
+                        <button type="submit" spinner primary squared>
                             {{ __('Save Or Change') }}
-                        </x-button>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -126,7 +162,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0">
-                        @livewire('acl::users.address-component', ['model' => $model], key($model->id))
+                        @livewire('tall::users.address-component', ['model' => $model], key($model->id))
                     </div>
                 </div>
             </div>
@@ -151,7 +187,7 @@
                         </div>
                     </div>
                     <div class="mt-5 md:mt-0 md:col-span-2">
-                        @livewire('acl::users.roles-component', ['model' => $model], key(sprintf('roles-%s', $model->id)))
+                        @livewire('tall::users.roles-component', ['model' => $model], key(sprintf('roles-%s', $model->id)))
                     </div>
                 </div>
             </div>
