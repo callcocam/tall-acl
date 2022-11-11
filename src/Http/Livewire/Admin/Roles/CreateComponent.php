@@ -11,7 +11,6 @@ use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Acl\Contracts\Role as ContractsRole;
-use Tall\Cms\Models\Make;
 use Tall\Form\Fields\Field;
 
 class CreateComponent extends FormComponent
@@ -30,10 +29,6 @@ class CreateComponent extends FormComponent
     {
         $this->authorize(Route::currentRouteName());
         
-        $this->setConfigProperties(new Make([
-            'name'=>'Roles',
-            'route'=>'admin.roles'
-        ]));
         $this->setFormProperties(app(ContractsRole::class),Route::currentRouteName()); 
     }
     

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\TableComponent;
 use Tall\Acl\LoadRouterHelper;
-use Tall\Cms\Models\Make;
 use Tall\Table\Fields\Column;
 
 final class ListComponent extends TableComponent
@@ -20,10 +19,8 @@ final class ListComponent extends TableComponent
     {
         LoadRouterHelper::save();
 
-        $this->setConfigProperties(new Make([
-            'name'=>'Permissions',
-            'route'=>'admin.permissions'
-        ]));
+        $this->authorize(Route::currentRouteName());
+
         $this->setUp(Route::currentRouteName());
     }
     

@@ -32,17 +32,13 @@ class EditComponent extends FormComponent
     {
         $this->authorize(Route::currentRouteName());
 
-        $this->setConfigProperties(new Make([
-            'name'=>'Roles',
-            'route'=>'admin.roles'
-        ]));
+
         $this->setFormProperties(app(ContractsRole::class)->find($model->id), Route::currentRouteName());
     
     }
 
     protected function fields()
     {
-       
         return [
             Field::make('Nome da role', 'name')->rules('required'),
             Field::radio('Tipo', 'special',array_combine(['all-access','no-access','no-defined'],['all-access','no-access','no-defined']))->rules('required'),

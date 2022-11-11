@@ -10,7 +10,6 @@ use Tall\Acl\Http\Livewire\TableComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Acl\Contracts\Role as ContractsRole;
-use Tall\Cms\Models\Make;
 use Tall\Table\Fields\Column;
 
 final class ListComponent extends TableComponent
@@ -21,10 +20,8 @@ final class ListComponent extends TableComponent
     {
         $this->authorize(Route::currentRouteName());
 
-        $this->setConfigProperties(new Make([
-            'name'=>'Roles',
-            'route'=>'admin.roles'
-        ]));
+        $this->setUp(Route::currentRouteName());
+
     }
     
     

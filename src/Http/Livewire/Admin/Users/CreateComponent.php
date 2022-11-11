@@ -43,18 +43,9 @@ class CreateComponent extends FormComponent
     public function mount(?User $model)
     {
         $this->authorize(Route::currentRouteName());   
-        $this->setFormProperties($model); // $user from hereon, called $this->model
+        $this->setFormProperties($model, Route::currentRouteName()); // $user from hereon, called $this->model
     }
-
-
-    // protected function rules(){
-    //     return [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         'email' => ['required', 'email', 'max:255', Rule::unique('users','email')],
-    //         'password' => $this->passwordRules(),
-    //     ];
-    //  }
-
+    
     protected function success($callback=null){
 
         $this->data['password'] =  Hash::make($this->data['password']);  

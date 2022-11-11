@@ -28,19 +28,19 @@ class AclServiceProvider extends ServiceProvider
         if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class))
            $this->app->register(RouteServiceProvider::class);
 
-           if(class_exists('App\Models\Permission')){
-               $this->app->bind(Permission::class, 'App\Models\Permission');
-           }
-           else{
-                $this->app->bind(Permission::class, ModelsPermission::class);
-           }
-           if(class_exists('App\Models\Role')){
+            if(class_exists('App\Models\Permission')){
+                $this->app->bind(Permission::class, 'App\Models\Permission');
+            }
+            else{
+                    $this->app->bind(Permission::class, ModelsPermission::class);
+            }
+            if(class_exists('App\Models\Role')){
             $this->app->bind(Role::class, 'App\Models\Role');
+            }
+            else{
+                $this->app->bind(Role::class, ModelsRole::class);
+            }
         }
-        else{
-             $this->app->bind(Role::class, ModelsRole::class);
-        }
-    }
 
    /**
      * Bootstrap any application services.
