@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Tall\\Acl\\AclServiceProvider"
+                "Tall\\Acl\\Providers\\AclServiceProvider"
             ]
         }
     },
