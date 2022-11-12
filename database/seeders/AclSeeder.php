@@ -30,35 +30,35 @@ class AclSeeder extends Seeder
         /**
          *@var $model Builder
          */
-        $model = app(Role::class);
+        $modelRole = app(Role::class);
 
-        $model->query()->forceDelete();
-        $role =  $model->factory()->create([
+        $modelRole->query()->forceDelete();
+        $role =  $modelRole->factory()->create([
             'name' => 'Super Admin',
             'slug' => 'super-admin',
             'special'=>'all-access'
         ]);
         
-        $user->roles()->sync([$role->id->toString()]);
+        $user->roles()->sync([$role->id]);
         $role =  [];
-        $role[1] =  $model->factory()->create([
+        $role[1] =  $modelRole->factory()->create([
             'name' => 'Admin',
             'slug' => 'admin',
             'special'=>'no-defined'
         ]);
-        $role[2] =  $model->factory()->create([
+        $role[2] =  $modelRole->factory()->create([
             'name' => 'User',
             'slug' => 'user',
             'special'=>'no-defined'
         ]);
-        $role[3] =  $model->factory()->create([
+        $role[3] =  $modelRole->factory()->create([
             'user_id' => 'Client',
             'name' => 'Client',
             'slug' => 'client',
             'special'=>'no-defined'
         ]);
         
-        $role[4] =  $model->factory()->create([
+        $role[4] =  $modelRole->factory()->create([
             'name' => 'Restrict',
             'slug' => 'restrict',
             'special'=>'no-access'
@@ -69,7 +69,7 @@ class AclSeeder extends Seeder
                 $model = $role[rand(1,4)];
                 $model->user_id = $user->id;
                 $model->update();
-                $user->roles()->sync([$model->id->toString()]);
+                $user->roles()->sync([$model->id]);
             }
         });          
     }
