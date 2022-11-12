@@ -14,7 +14,9 @@ use Livewire\Livewire;
 use Tall\Acl\Console\Commands\AclCommand;
 use Tall\Acl\Contracts\Permission;
 use Tall\Acl\Contracts\Role;
+use Tall\Acl\Contracts\User;
 use Tall\Acl\Models\Role as ModelsRole;
+use Tall\Acl\Models\User as ModelsUser;
 
 class AclServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,13 @@ class AclServiceProvider extends ServiceProvider
     {
         if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class))
            $this->app->register(RouteServiceProvider::class);
+
+            if(class_exists('App\Models\User')){
+                $this->app->bind(User::class, 'App\Models\User');
+            }
+            else{
+                    $this->app->bind(User::class, ModelsUser::class);
+            }
 
             if(class_exists('App\Models\Permission')){
                 $this->app->bind(Permission::class, 'App\Models\Permission');
