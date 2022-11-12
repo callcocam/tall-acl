@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        $name = config('acl.tables.permission_user','permission_user');
+        $name = config('acl.tables.permission_role','permission_role');
         Schema::create($name, function (Blueprint $table) {
             $table->uuid('permission_id');
-            $table->uuid('user_id');
+            $table->uuid('role_id');
             $table->timestamps();
         });
     }

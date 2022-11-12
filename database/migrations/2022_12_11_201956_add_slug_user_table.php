@@ -14,22 +14,22 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn($table, "slug")) {
+            if (Schema::hasColumn('users', "slug")) {
                 $table->string('slug')->nullable();
             }
-            if (Schema::hasColumn($table, "document")) {
+            if (Schema::hasColumn('users', "document")) {
                 $table->string('document')->after('slug')->nullable();
             }
-            if (Schema::hasColumn($table, "phone")) {
+            if (Schema::hasColumn('users', "phone")) {
                 $table->string('phone')->after('document')->nullable();
             }
-            if (Schema::hasColumn($table, "genger")) {
+            if (Schema::hasColumn('users', "genger")) {
                 $table->string('genger')->after('phone')->nullable();
             }
-            if (Schema::hasColumn($table, "profile")) {
+            if (Schema::hasColumn('users', "profile")) {
                 $table->string('profile')->after('genger')->nullable();
             }
-            if (Schema::hasColumn($table, "deleted_at")) {
+            if (Schema::hasColumn('users', "deleted_at")) {
                 $table->softDeletes();
             }           
         });
