@@ -23,7 +23,7 @@ trait HasRoles
     public function roles(): BelongsToMany
     {
        
-        return $this->belongsToMany(config('acl.models.role'),'role_user','user_id')->withTimestamps();
+        return $this->belongsToMany(app(\Tall\Acl\Contracts\Role::class),'role_user','user_id')->withTimestamps();
     }
 
     /**
@@ -182,6 +182,6 @@ trait HasRoles
      */
     protected function getRoleModel(): Role
     {
-        return app()->make(config('acl.models.role'));
+        return app()->make(\Tall\Acl\Contracts\Role::class);
     }
 }

@@ -22,7 +22,7 @@ trait HasPermissions
     public function permissions(): BelongsToMany
     {
 
-        return $this->belongsToMany(config('acl.models.permission'))->withTimestamps();
+        return $this->belongsToMany(app(\Tall\Acl\Contracts\Permission::class))->withTimestamps();
     }
 
     /**
@@ -169,11 +169,11 @@ trait HasPermissions
                 'permissions',
                 config('acl.cache.length'),
                 function() {
-                    return app()->make(config('acl.models.permission'))->get();
+                    return app()->make(\Tall\Acl\Contracts\Permission::class)->get();
                 }
             );
         }
 
-        return app()->make(config('acl.models.permission'));
+        return app()->make(\Tall\Acl\Contracts\Permission::class);
     }
 }
