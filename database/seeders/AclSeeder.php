@@ -39,6 +39,7 @@ class AclSeeder extends Seeder
             'special'=>'no-defined'
         ]);
         $role[3] =  \Tall\Acl\Models\Role::factory()->create([
+            'user_id' => 'Client',
             'name' => 'Client',
             'slug' => 'client',
             'special'=>'no-defined'
@@ -51,7 +52,12 @@ class AclSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(100)->create()->each(function($user) use($role){
-            $user->roles()->sync([$role[rand(1,4)]->id->toString()]);
-        });        
+            if(isset($role[rand(1,4)])){
+                $model = $role[rand(1,4)];
+                $model->user_id = $user->id;
+                $model->update();
+                $user->roles()->sync([$model->id->toString()]);
+            }
+        });          
     }
 }
