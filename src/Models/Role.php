@@ -13,11 +13,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\HasPermissions;
 use Tall\Acl\Contracts\Role as ContractRole;
-use Tall\Acl\Concerns\UsesLandlordConnection;
 
 class Role extends AbstractModel implements ContractRole
 {
-    use HasPermissions, UsesLandlordConnection, HasFactory;
+    use HasPermissions, HasFactory;
 
     /**
      * The attributes that are mass assignable.

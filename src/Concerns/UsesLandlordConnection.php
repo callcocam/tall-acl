@@ -10,4 +10,6 @@ namespace Tall\Acl\Concerns;
 trait UsesLandlordConnection
 {
    
+
+    
 }

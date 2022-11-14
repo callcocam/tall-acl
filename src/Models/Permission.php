@@ -11,12 +11,11 @@ namespace Tall\Acl\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\RefreshesPermissionCache;
-use Tall\Acl\Concerns\UsesLandlordConnection;
 use Tall\Acl\Contracts\Permission as ContractsPermission;
 
 class Permission extends AbstractModel implements ContractsPermission
 {
-    use RefreshesPermissionCache, UsesLandlordConnection, HasFactory;
+    use RefreshesPermissionCache, HasFactory;
 
     /**
      * The attributes that are mass assignable.

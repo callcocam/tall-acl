@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         $name = config('acl.tables.role_user', 'role_user');
-        Schema::create($name, function (Blueprint $table) {
-            $table->uuid('role_id');
-            $table->uuid('user_id');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable($name)) {
+            Schema::create($name, function (Blueprint $table) {
+                $table->uuid('role_id');
+                $table->uuid('user_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

@@ -30,7 +30,14 @@ return new class extends Migration
                 $table->string('profile')->after('genger')->nullable();
             }
             if (!Schema::hasColumn('users', "status")) {
-                $table->enum('status',['draft','published'])->nullable()->comment("Situação")->default('published');
+                if (!Schema::hasColumn('users', "status_id")) {
+                    if (Schema::hasTable('statuses')) {           
+                        $table->foreignUuid('status_id')->nullable()->constrained('statuses')->cascadeOnDelete();
+                    }
+                    else{
+                        $table->enum('status_id',['draft','published'])->nullable()->comment("Situação")->default('published');
+                    }
+                }
             }
             if (!Schema::hasColumn('users', "deleted_at")) {
                 $table->softDeletes();

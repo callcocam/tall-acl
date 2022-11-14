@@ -10,6 +10,7 @@ namespace Tall\Acl;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Tall\Acl\Models\Permission;
+use Tall\Theme\Models\Status;
 
 class LoadRouterHelper
 {
@@ -51,7 +52,7 @@ class LoadRouterHelper
                     'name' => $name,
                     'slug' => $permission,
                     'group' => $last,
-                    'status' => 'published',
+                    'status_id' => Status::query()->whereName('Published')->first()->id,
                     'description' => $name
                 ]);
             }
