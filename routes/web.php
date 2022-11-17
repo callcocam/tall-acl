@@ -21,6 +21,8 @@ Route::middleware([
 ])->prefix('admin')->group(function () {
 
     Route::get('/minha-conta', \Tall\Acl\Http\Livewire\Admin\Profile\ShowComponent::class)->name('admin.profile.show');
+    Route::get('/equipe/create', \Tall\Acl\Http\Livewire\Admin\Profile\Teams\Manage\CreateTeamForm::class)->name('admin.teams.create');
+    Route::get('/equipe/{teamId}', \Tall\Acl\Http\Livewire\Admin\Profile\Teams\Manage\ShowComponent::class)->name('admin.teams.show');
     Route::get('/users', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class)->name('admin.users');
     Route::get('/user/cadastrar', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class)->name('admin.users.create');
     Route::get('/user/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class)->name('admin.users.edit');

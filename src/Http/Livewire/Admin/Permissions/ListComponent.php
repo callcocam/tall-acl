@@ -19,8 +19,6 @@ final class ListComponent extends TableComponent
     {
         LoadRouterHelper::save();
 
-        $this->authorize(Route::currentRouteName());
-
         $this->setUp(Route::currentRouteName());
     }
     

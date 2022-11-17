@@ -9,17 +9,15 @@ namespace Tall\Acl\Http\Livewire\Admin\Users;
 use App\Models\User;
 use Tall\Acl\Http\Livewire\TableComponent;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Orm\Traits\Kill;
 use Tall\Table\Fields\Column;
 
 final class ListComponent extends TableComponent
 {
-    use AuthorizesRequests, Kill;
+    use Kill;
     
     public function mount()
     {
-        $this->authorize(Route::currentRouteName());
 
         $this->setUp(Route::currentRouteName());
        

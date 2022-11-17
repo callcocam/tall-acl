@@ -11,7 +11,6 @@ namespace Tall\Acl\Http\Livewire\Admin\Roles;
 use App\Models\Make;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Acl\Contracts\Permission;
 use Tall\Acl\Contracts\Role as ContractsRole;
 use Tall\Acl\Models\Role;
@@ -20,7 +19,6 @@ use Tall\Form\Fields\Field;
 class EditComponent extends FormComponent
 {
  
-    use AuthorizesRequests;
     /*
     |--------------------------------------------------------------------------
     |  Features mount
@@ -30,8 +28,6 @@ class EditComponent extends FormComponent
     */
     public function mount(?Role $model)
     {
-        $this->authorize(Route::currentRouteName());
-
 
         $this->setFormProperties(app(ContractsRole::class)->find($model->id), Route::currentRouteName());
     

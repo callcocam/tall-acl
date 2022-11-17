@@ -43,6 +43,15 @@ return new class extends Migration
                 $table->softDeletes();
             }    
         });
+
+        Schema::table('teams', function (Blueprint $table) {
+            if (!Schema::hasColumn('teams', "slug")) {
+                $table->string('slug')->nullable();
+            }
+            if (!Schema::hasColumn('users', "deleted_at")) {
+                $table->softDeletes();
+            }    
+        });
     }
 
     /**

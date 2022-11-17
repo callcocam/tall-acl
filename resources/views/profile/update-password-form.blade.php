@@ -6,6 +6,7 @@
     <x-slot name="description">
         {{ __('Ensure your account is using a long, random password to stay secure.') }}
     </x-slot>
+
     @if ($field = field(__('Current Password'), 'current_password')->span(4))
         <x-tall-label for="name" :field="$field">
             <x-tall-input :field="$field" />

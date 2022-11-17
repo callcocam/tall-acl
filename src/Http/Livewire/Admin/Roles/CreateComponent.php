@@ -9,15 +9,11 @@ namespace Tall\Acl\Http\Livewire\Admin\Roles;
 use Tall\Acl\Models\Role;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Tall\Acl\Contracts\Role as ContractsRole;
 use Tall\Form\Fields\Field;
 
 class CreateComponent extends FormComponent
 {
-
-    use AuthorizesRequests;
-
    /*
     |--------------------------------------------------------------------------
     |  Features mount
@@ -27,8 +23,6 @@ class CreateComponent extends FormComponent
     */
     public function mount(?Role $model)
     {
-        $this->authorize(Route::currentRouteName());
-        
         $this->setFormProperties(app(ContractsRole::class),Route::currentRouteName()); 
     }
     

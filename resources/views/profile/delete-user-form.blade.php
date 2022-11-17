@@ -19,7 +19,7 @@
         </div>
 
         <!-- Delete User Confirmation Modal -->
-        <x-tall-acl-dialog-modal wire:model="confirmingUserDeletion">
+        <x-tall-acl-dialog-modal  maxWidth="lg" wire:model="confirmingUserDeletion">
             <x-slot name="title">
                 {{ __('Delete Account') }}
             </x-slot>

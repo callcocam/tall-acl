@@ -8,14 +8,13 @@ namespace Tall\Acl\Http\Livewire\Admin\Users;
 
 use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
 
 class RolesComponent extends FormComponent
 {
 
     public function mount(?User $model)
     {
-        $this->setFormProperties($model); // $user from hereon, called $this->model
+        $this->setFormProperties($model);
         
     }
 

@@ -11,12 +11,10 @@ use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\PasswordValidationRules;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CreateComponent extends FormComponent
 {
 
-    use AuthorizesRequests;
     use PasswordValidationRules;
     
     public $basic = false;
@@ -42,7 +40,6 @@ class CreateComponent extends FormComponent
     */
     public function mount(?User $model)
     {
-        $this->authorize(Route::currentRouteName());   
         $this->setFormProperties($model, Route::currentRouteName()); // $user from hereon, called $this->model
     }
     

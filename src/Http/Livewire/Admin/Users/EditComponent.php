@@ -10,13 +10,11 @@ use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use App\Actions\Fortify\PasswordValidationRules;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 use Tall\Form\Fields\Field;
 
 class EditComponent extends FormComponent
 {
-    use AuthorizesRequests;
 
     use PasswordValidationRules;
 
@@ -37,7 +35,6 @@ class EditComponent extends FormComponent
     */
     public function mount(?User $model)
     {
-        $this->authorize(Route::currentRouteName());
         $this->setFormProperties($model, Route::currentRouteName());
     }
 

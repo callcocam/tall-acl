@@ -13,6 +13,7 @@ use Tall\Form\Fields\Field;
 class ShowComponent extends FormComponent
 {
 
+
     public function mount()
     {
         $this->setFormProperties(auth()->user(), Route::currentRouteName());
@@ -32,7 +33,17 @@ class ShowComponent extends FormComponent
     {
         return 'tall::profile.show-component';
     }
-
+ /**
+     * Monta automaticamente o nome da model
+     * Voce pode sobrescrever essas informações no component filho
+     */
+    protected function modelClass()
+    {
+        if($this->config){
+            return $this->config->model;
+        }
+        return get_class(auth()->user());
+    }
     /**
      * @return Builder
      */

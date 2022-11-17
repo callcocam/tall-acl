@@ -16,6 +16,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Tall\Acl\Concerns\HasRolesAndPermissions;
+use Tall\Cms\Models\MakeInport;
 
 class User extends AbstractModel implements
     AuthenticatableContract,
@@ -43,4 +44,15 @@ class User extends AbstractModel implements
     public function isUser(){
         return false;
     }
+
+    
+
+    public function imports()
+    {
+        if(class_exists('\\App\\Models\\MakeInport')){
+            return $this->hasMany('\\App\\Models\\MakeInport');
+        }
+        return $this->hasMany(MakeInport::class);
+    }
+
 }
