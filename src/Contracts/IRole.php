@@ -9,7 +9,7 @@ namespace Tall\Acl\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-interface Role
+interface IRole
 {
     /**
      * Roles can belong to many users.

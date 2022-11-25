@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Query\Builder;
-use Tall\Acl\Contracts\Role;
-use Tall\Acl\Contracts\User;
+use Tall\Acl\Contracts\IRole;
+use Tall\Acl\Contracts\IUser;
 
 class AclSeeder extends Seeder
 {
@@ -20,7 +19,7 @@ class AclSeeder extends Seeder
          /**
          *@var $model Builder
          */
-        $userModel = app(User::class);
+        $userModel = app(IUser::class);
         
         $userModel->query()->forceDelete();
         $user =   $userModel->factory()->create([
@@ -30,7 +29,7 @@ class AclSeeder extends Seeder
         /**
          *@var $model Builder
          */
-        $modelRole = app(Role::class);
+        $modelRole = app(IRole::class);
 
         $modelRole->query()->forceDelete();
         $role =  $modelRole->factory()->create([

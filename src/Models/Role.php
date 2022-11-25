@@ -8,13 +8,13 @@
 namespace Tall\Acl\Models;
 
 
-use Tall\Acl\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\HasPermissions;
-use Tall\Acl\Contracts\Role as ContractRole;
+use Tall\Acl\Contracts\IRole;
+use Tall\Acl\Contracts\IUser;
 
-class Role extends AbstractModel implements ContractRole
+class Role extends AbstractModel implements IRole
 {
     use HasPermissions, HasFactory;
 
@@ -49,7 +49,7 @@ class Role extends AbstractModel implements ContractRole
      */
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany( User::class)->withTimestamps();
+        return $this->belongsToMany( app(IUser::class))->withTimestamps();
     }
 
     /**

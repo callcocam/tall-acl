@@ -11,7 +11,6 @@ namespace Tall\Acl\Concerns;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Tall\Acl\Contracts\Role;
 
 trait HasRoles
 {
@@ -23,7 +22,7 @@ trait HasRoles
     public function roles(): BelongsToMany
     {
        
-        return $this->belongsToMany(app(\Tall\Acl\Contracts\Role::class),'role_user','user_id')->withTimestamps();
+        return $this->belongsToMany(app(\Tall\Acl\Contracts\IRole::class),'role_user','user_id')->withTimestamps();
     }
 
     /**
@@ -178,10 +177,10 @@ trait HasRoles
     /**
      * Get the model instance responsible for permissions.
      *
-     * @return  Role
+     * @return  \Tall\Acl\Contracts\IRole
      */
-    protected function getRoleModel(): Role
+    protected function getRoleModel(): \Tall\Acl\Contracts\IRole
     {
-        return app()->make(\Tall\Acl\Contracts\Role::class);
+        return app()->make(\Tall\Acl\Contracts\IRole::class);
     }
 }

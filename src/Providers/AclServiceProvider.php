@@ -12,9 +12,9 @@ use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Livewire;
 use Tall\Acl\Console\Commands\AclCommand;
-use Tall\Acl\Contracts\Permission;
-use Tall\Acl\Contracts\Role;
-use Tall\Acl\Contracts\User;
+use Tall\Acl\Contracts\IPermission;
+use Tall\Acl\Contracts\IRole;
+use Tall\Acl\Contracts\IUser;
 use Tall\Acl\Models\Role as ModelsRole;
 use Tall\Acl\Models\User as ModelsUser;
 
@@ -32,23 +32,23 @@ class AclServiceProvider extends ServiceProvider
            $this->app->register(RouteServiceProvider::class);
 
             if(class_exists('App\Models\User')){
-                $this->app->bind(User::class, 'App\Models\User');
+                $this->app->bind(IUser::class, 'App\Models\User');
             }
             else{
-                    $this->app->bind(User::class, ModelsUser::class);
+                    $this->app->bind(IUser::class, ModelsUser::class);
             }
 
             if(class_exists('App\Models\Permission')){
-                $this->app->bind(Permission::class, 'App\Models\Permission');
+                $this->app->bind(IPermission::class, 'App\Models\Permission');
             }
             else{
-                    $this->app->bind(Permission::class, ModelsPermission::class);
+                    $this->app->bind(PerIPermissionmission::class, ModelsPermission::class);
             }
             if(class_exists('App\Models\Role')){
-            $this->app->bind(Role::class, 'App\Models\Role');
+            $this->app->bind(IRole::class, 'App\Models\Role');
             }
             else{
-                $this->app->bind(Role::class, ModelsRole::class);
+                $this->app->bind(IRole::class, ModelsRole::class);
             }
         }
 
@@ -175,6 +175,12 @@ class AclServiceProvider extends ServiceProvider
             __DIR__.'/../../database/seeders/' => database_path('seeders'),
         ], 'acl-seeder');
         
+
+        $this->publishes([
+            __DIR__.'/../../database/migrations/' => database_path('migrations'),
+            __DIR__.'/../../database/seeders/' => database_path('seeders'),
+            __DIR__.'/../../database/factories/' => database_path('factories'),
+        ], 'acl-database');
     }
 
     /**

@@ -7,7 +7,7 @@
 namespace Tall\Acl\Contracts;
 
 
-interface User
+interface IUser
 {
 
 }

@@ -11,9 +11,10 @@ namespace Tall\Acl\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\RefreshesPermissionCache;
-use Tall\Acl\Contracts\Permission as ContractsPermission;
+use Tall\Acl\Contracts\IPermission;
+use Tall\Acl\Contracts\IRole;
 
-class Permission extends AbstractModel implements ContractsPermission
+class Permission extends AbstractModel implements IPermission
 {
     use RefreshesPermissionCache, HasFactory;
 
@@ -33,7 +34,7 @@ class Permission extends AbstractModel implements ContractsPermission
      */
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(config('acl.models.role'))->withTimestamps();
+        return $this->belongsToMany(app(IRole::class))->withTimestamps();
     }
     
     protected function slugTo()

@@ -10,7 +10,7 @@ namespace Tall\Acl\Contracts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-interface Permission
+interface IPermission
 {
     /**
      * Permissions can belong to many roles.

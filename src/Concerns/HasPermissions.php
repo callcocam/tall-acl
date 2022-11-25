@@ -10,7 +10,6 @@ namespace Tall\Acl\Concerns;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
 use Tall\Acl\Exceptions\PermissionNotFoundException;
-use Tall\Acl\Models\Permission;
 
 trait HasPermissions
 {
@@ -22,7 +21,7 @@ trait HasPermissions
     public function permissions(): BelongsToMany
     {
 
-        return $this->belongsToMany(app(\Tall\Acl\Contracts\Permission::class))->withTimestamps();
+        return $this->belongsToMany(app(\Tall\Acl\Contracts\IPermission::class))->withTimestamps();
     }
 
     /**
@@ -130,7 +129,7 @@ trait HasPermissions
         return array_map(function($permission) {
             $model = $this->getPermissionModel();
 
-            if ($permission instanceof Permission) {
+            if ($permission instanceof \Tall\Acl\Contracts\IPermission) {
                 return $permission->id;
             }
 
@@ -150,7 +149,7 @@ trait HasPermissions
     {
         $model = $this->getPermissionModel();
 
-        if ($permission instanceof Permission) {
+        if ($permission instanceof \Tall\Acl\Contracts\IPermission) {
             $permission = $permission->slug;
         }
 
@@ -169,11 +168,11 @@ trait HasPermissions
                 'permissions',
                 config('acl.cache.length'),
                 function() {
-                    return app()->make(\Tall\Acl\Contracts\Permission::class)->get();
+                    return app()->make(\Tall\Acl\Contracts\IPermission::class)->get();
                 }
             );
         }
 
-        return app()->make(\Tall\Acl\Contracts\Permission::class);
+        return app()->make(\Tall\Acl\Contracts\IPermission::class);
     }
 }
