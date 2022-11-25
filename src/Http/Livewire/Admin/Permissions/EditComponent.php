@@ -34,8 +34,10 @@ class EditComponent extends FormComponent
     {
        
         return [
-            Field::make('Nome da role', 'name')->rules('required'),
-            Field::quill('Descrição','description'),
+            Field::make('Nome da permissão', 'name')->rules('required')->span(6),
+            Field::make('Chave', 'slug')->rules('required')->span(6),
+            Field::textarea('Descrição','description'),
+            Field::status(),
             Field::date('Data de criação','created_at')->span(6),
             Field::date('Última atualização', 'updated_at')->span(6)
         ];

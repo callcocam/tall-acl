@@ -17,7 +17,7 @@ final class ListComponent extends TableComponent
 
     public function mount()
     {
-        LoadRouterHelper::save();
+        // LoadRouterHelper::save();
 
         $this->setUp(Route::currentRouteName());
     }

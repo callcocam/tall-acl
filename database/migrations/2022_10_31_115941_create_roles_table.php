@@ -18,16 +18,10 @@ return new class extends Migration
         if(!Schema::hasTable($name)) {
             Schema::create($name, function (Blueprint $table) {
                 $table->uuid('id')->primary();
-                $table->uuid('user_id')->nullable();
+                // $table->uuid('user_id')->nullable();
                 $table->string('name', 255)->unique();
                 $table->string('slug', 255)->unique();
                 $table->enum('special', ['no-access','all-access','no-defined'])->nullable();            
-                if (Schema::hasTable('statuses')) {           
-                    $table->foreignUuid('status_id')->nullable()->constrained('statuses')->cascadeOnDelete();
-                }
-                else{
-                    $table->enum('status_id',['draft','published'])->nullable()->comment("Situação")->default('published');
-                }
                 $table->text('description')->nullable();
                 $table->timestamps();
                 $table->softDeletes();

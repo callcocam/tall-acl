@@ -20,13 +20,7 @@ return new class extends Migration
                 $table->string('name', 255)->unique();
                 $table->string('slug', 255)->unique();
                 $table->string('group', 50)->default('index');
-                $table->foreignUuid('user_id')->nullable()->constrained('users')->cascadeOnDelete();        
-                if (Schema::hasTable('statuses')) {           
-                    $table->foreignUuid('status_id')->nullable()->constrained('statuses')->cascadeOnDelete();
-                }
-                else{
-                    $table->enum('status_id',['draft','published'])->nullable()->comment("Situação")->default('published');
-                }
+                // $table->foreignUuid('user_id')->nullable()->constrained('users')->cascadeOnDelete();        
                 $table->text('description')->nullable();
                 $table->timestamps();
                 $table->softDeletes();
