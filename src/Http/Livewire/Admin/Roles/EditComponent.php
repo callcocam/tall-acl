@@ -6,14 +6,11 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
-// use App\Models\Role;
 
-use App\Models\Make;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\Permission;
-use Tall\Acl\Contracts\Role as ContractsRole;
-use Tall\Acl\Models\Role;
+use Tall\Acl\Contracts\IPermission;
+use Tall\Acl\Contracts\IRole;
 use Tall\Form\Fields\Field;
 
 class EditComponent extends FormComponent
@@ -26,10 +23,10 @@ class EditComponent extends FormComponent
     | Inicia o formulario com um cadastro selecionado
     |
     */
-    public function mount(?Role $model)
+    public function mount($model)
     {
 
-        $this->setFormProperties(app(ContractsRole::class)->find($model->id), Route::currentRouteName());
+        $this->setFormProperties(app(IRole::class)->find($model), Route::currentRouteName());
     
     }
 
@@ -40,7 +37,7 @@ class EditComponent extends FormComponent
             Field::radio('Tipo', 'special',array_combine(['all-access','no-access','no-defined'],['all-access','no-access','no-defined']))->rules('required'),
             Field::date('Data de criação','created_at')->span(6),
             Field::date('Última atualização', 'updated_at')->span(6),
-            Field::checkbox('Permissões', 'permissions', app(Permission::class)->pluck('name', 'id')->toArray()),
+            Field::checkbox('Permissões', 'permissions', app(IPermission::class)->pluck('name', 'id')->toArray())->multiple(true),
         ];
     }
 

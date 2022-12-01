@@ -64,11 +64,13 @@
                             </div>
                         @endif
                     </div>
-                    @if (Gate::authorize('create', \Tall\Acl\teams\Jetstream::newTeamModel()))
-                        <div class="my-7 h-px bg-slate-200 dark:bg-navy-500"></div>
-                        <div>
-                            @livewire('tall::admin.profile.teams.create-team-form')
-                        </div>
+                    @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                        @if (Gate::authorize('create', \Laravel\Jetstream\Jetstream::newTeamModel()))
+                            <div class="my-7 h-px bg-slate-200 dark:bg-navy-500"></div>
+                            <div>
+                                @livewire('tall::admin.profile.teams.create-team-form')
+                            </div>
+                        @endif
                     @endif
                 </div>
             </div>

@@ -8,8 +8,10 @@ namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
 use Tall\Acl\Http\Livewire\TableComponent;
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\Role as ContractsRole;
+use Tall\Acl\Contracts\IRole as ContractsRole;
 use Tall\Table\Fields\Column;
+use Tall\Tenant\Contracts\ITenant;
+use Tall\Tenant\Models\Landlord\Tenant;
 
 final class ListComponent extends TableComponent
 {
@@ -47,10 +49,20 @@ final class ListComponent extends TableComponent
     |
     */
     protected function query(){
-        return app(ContractsRole::class)->query();
+
+        return app(ContractsRole::class)->query()->when(isTenant(), function($builder){
+            return $builder->tenants(get_tenant_id());
+        });
     }
 
     protected function  view($sufix="-component"){
         return "tall::roles.list-component";
+    }
+
+    
+
+    public function getImportProperty()
+    {
+        return 'tall::admin.roles.imports.csv-component';
     }
 }

@@ -6,15 +6,16 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Users;
 
-use App\Models\User;
+use Tall\Acl\Contracts\IRole;
+use Tall\Acl\Contracts\IUser;
 use Tall\Acl\Http\Livewire\FormComponent;
 
 class RolesComponent extends FormComponent
 {
 
-    public function mount(?User $model)
+    public function mount($model)
     {
-        $this->setFormProperties($model);
+        $this->setFormProperties(app(IUser::class)->find($model));
         
     }
 
@@ -23,7 +24,7 @@ class RolesComponent extends FormComponent
     }
 
     public function getRolesProperty(){
-        return \Tall\Acl\Models\Role::query()->get();
+        return app()->make(IRole::class)::query()->get();
     }
 
     public function success($callback = null)

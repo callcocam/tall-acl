@@ -6,17 +6,22 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Users;
 
-use App\Models\User;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 use App\Actions\Fortify\PasswordValidationRules;
+use Tall\Acl\Contracts\IRole;
+use Tall\Acl\Contracts\IUser;
+use Tall\Form\Fields\Field;
 
 class CreateComponent extends FormComponent
 {
 
+   
     use PasswordValidationRules;
-    
+
+    public $photo;
+
     public $basic = false;
 
      
@@ -38,7 +43,7 @@ class CreateComponent extends FormComponent
     | Inicia o formulario com um cadastro vasio
     |
     */
-    public function mount(?User $model)
+    public function mount(?IUser $model)
     {
         $this->setFormProperties($model, Route::currentRouteName()); // $user from hereon, called $this->model
     }
@@ -60,5 +65,27 @@ class CreateComponent extends FormComponent
     public function saveAndGoBackResponse()
     {
         return redirect()->route('admin.userr.create',$this->model);
+    }
+
+    protected function fields()
+    {
+        
+        return [
+            Field::make('Nome Completo', 'name')->span(6)->rules('required'),
+            Field::make('E-Mail','email')->span(6)->rules('required'),
+            Field::textarea('Informações adicional','description'),
+            Field::date('Data de criação','created_at')->span(6),
+            Field::date('Última atualização', 'updated_at')->span(6),
+            Field::checkbox('Roles', 'access', app(IRole::class)
+            ->when(isTenant(), function($builder){
+                return $builder->tenants(get_tenant_id());
+            })
+            ->pluck('name', 'id')->toArray())->multiple(true),
+        ];
+    }
+    
+    public function span()
+    {
+        return '8';
     }
 }

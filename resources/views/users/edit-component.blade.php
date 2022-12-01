@@ -41,4 +41,6 @@
             </x-tall-label>
         @endforeach
     @endif
+
+    
 </x-tall-app-sections>

@@ -6,9 +6,9 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Users;
 
-use App\Models\User;
 use Tall\Acl\Http\Livewire\TableComponent;
 use Illuminate\Support\Facades\Route;
+use Tall\Acl\Contracts\IUser;
 use Tall\Orm\Traits\Kill;
 use Tall\Table\Fields\Column;
 
@@ -47,7 +47,7 @@ final class ListComponent extends TableComponent
     |
     */
     protected function query(){
-         return User::query();
+         return app()->make(IUser::class)::query();
     }
 
 
@@ -56,4 +56,9 @@ final class ListComponent extends TableComponent
         return "tall::users.list-component";
     }
 
+
+    public function getImportProperty()
+    {
+        return 'tall::admin.users.imports.csv-component';
+    }
 }

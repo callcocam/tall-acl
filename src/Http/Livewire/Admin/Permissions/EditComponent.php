@@ -6,11 +6,8 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
-use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\Permission as ContractsPermission;
-use Tall\Cms\Models\Make;
+use Tall\Acl\Contracts\IPermission;
 use Tall\Form\Fields\Field;
 
 class EditComponent extends FormComponent
@@ -23,10 +20,10 @@ class EditComponent extends FormComponent
     | Inicia o formulario com um cadastro selecionado
     |
     */
-    public function mount(?Permission $model)
+    public function mount($model)
     {
         
-        $this->setFormProperties(app(ContractsPermission::class)->find($model->id));
+        $this->setFormProperties(app()->make(IPermission::class)->find($model));
 
      }
 

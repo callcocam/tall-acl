@@ -24,6 +24,7 @@ Route::middleware([
     Route::get('/users', \Tall\Acl\Http\Livewire\Admin\Users\ListComponent::class)->name('admin.users');
     Route::get('/user/cadastrar', \Tall\Acl\Http\Livewire\Admin\Users\CreateComponent::class)->name('admin.users.create');
     Route::get('/user/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class)->name('admin.users.edit');
+    Route::get('/user/{model}/excluir', \Tall\Acl\Http\Livewire\Admin\Users\DeleteComponent::class)->name('admin.users.delete');
 
     Route::get('/roles', \Tall\Acl\Http\Livewire\Admin\Roles\ListComponent::class)->name('admin.roles');  
     Route::get('/role/cadastrar', \Tall\Acl\Http\Livewire\Admin\Roles\CreateComponent::class)->name('admin.roles.create');
@@ -32,4 +33,5 @@ Route::middleware([
     Route::get('/permissions', \Tall\Acl\Http\Livewire\Admin\Permissions\ListComponent::class)->name('admin.permissions');
     Route::get('/permission/cadastrar', \Tall\Acl\Http\Livewire\Admin\Permissions\CreateComponent::class)->name('admin.permissions.create');
     Route::get('/permission/{model}/editar', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class)->name('admin.permissions.edit');
+    Route::get('/permission/{model}/excluir', \Tall\Acl\Http\Livewire\Admin\Permissions\DeleteComponent::class)->name('admin.permissions.delete');
 });

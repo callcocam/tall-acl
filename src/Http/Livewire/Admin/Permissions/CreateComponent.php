@@ -9,7 +9,7 @@ namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\Permission as ContractsPermission;
+use Tall\Acl\Contracts\IPermission;
 use Tall\Form\Fields\Field;
 
 class CreateComponent extends FormComponent
@@ -25,7 +25,7 @@ class CreateComponent extends FormComponent
     */
     public function mount(?Permission $model)
     {
-        $this->setFormProperties(app(ContractsPermission::class)->make($this->blankModel()), Route::currentRouteName());
+        $this->setFormProperties(app()->make(IPermission::class)->make($this->blankModel()), Route::currentRouteName());
     }
     
     protected function fields()

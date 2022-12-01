@@ -6,10 +6,9 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
-use Tall\Acl\Models\Role;
 use Tall\Acl\Http\Livewire\FormComponent;
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\Role as ContractsRole;
+use Tall\Acl\Contracts\IRole;
 use Tall\Form\Fields\Field;
 
 class CreateComponent extends FormComponent
@@ -21,9 +20,9 @@ class CreateComponent extends FormComponent
     | Inicia o formulario com um cadastro vasio
     |
     */
-    public function mount(?Role $model)
+    public function mount(?IRole $model)
     {
-        $this->setFormProperties(app(ContractsRole::class),Route::currentRouteName()); 
+        $this->setFormProperties($model,Route::currentRouteName()); 
     }
     
     

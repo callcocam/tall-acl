@@ -6,6 +6,7 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
+use Tall\Acl\Contracts\IPermission;
 use Tall\Acl\Models\Role;
 use Tall\Acl\Http\Livewire\FormComponent;
 
@@ -22,7 +23,7 @@ class PermissionsComponent extends FormComponent
     }
 
     public function getPermissionsProperty(){
-        return \Tall\Acl\Models\Permission::query()->get();
+        return app()->make(IPermission::class)::query()->get();
     }
 
     public function success($callback = null)

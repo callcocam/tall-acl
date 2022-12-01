@@ -16,7 +16,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Tall\Acl\Concerns\HasRolesAndPermissions;
-use Tall\Cms\Models\MakeInport;
+use Tall\Cms\Models\MakeImport;
 
 class User extends AbstractModel implements
     AuthenticatableContract,
@@ -25,11 +25,32 @@ class User extends AbstractModel implements
 {
     use Authenticatable, Authorizable, CanResetPassword, MustVerifyEmail,  HasRolesAndPermissions;
 
-    protected $appends = ['access'];
- 
+    protected $with = ['roles','imports'];
+
+    protected $guarded = ['id'];
+     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url','access'
+    ];
+
+      /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'created_at' => 'date:Y-m-d',
+        'updated_at' => 'date:Y-m-d',
+    ];
+
     public function getAccessAttribute()
     {
-        $roles = $this->roles()->pluck("id", "id")->toArray();
+        $roles = array_values($this->roles()->pluck("id", "id")->toArray());
         
         return $roles;
     }
@@ -49,10 +70,10 @@ class User extends AbstractModel implements
 
     public function imports()
     {
-        if(class_exists('\\App\\Models\\MakeInport')){
-            return $this->hasMany('\\App\\Models\\MakeInport');
+        if(class_exists('\\App\\Models\\MakeImport')){
+            return $this->hasMany('\\App\\Models\\MakeImport');
         }
-        return $this->hasMany(MakeInport::class);
+        return $this->hasMany(MakeImport::class);
     }
 
 }

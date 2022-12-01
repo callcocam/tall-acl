@@ -4,11 +4,10 @@
 * User: callcocam@gmail.com, contato@sigasmart.com.br
 * https://www.sigasmart.com.br
 */
-namespace Tall\Acl\Http\Livewire\Admin\Users;
+namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Contracts\IUser;
+use Tall\Acl\Contracts\IPermission;
 use Tall\Orm\Http\Livewire\DeleteComponent as LivewireDeleteComponent;
 
 // use Tall\Orm\Http\Livewire\ConfirmComponent;
@@ -23,9 +22,9 @@ class DeleteComponent extends LivewireDeleteComponent
     | Inicia o formulario com um cadastro selecionado
     |
     */
-    public function mount( $model)
+    public function mount($model)
     {
-        $this->setFormProperties(app()->make(IUser::class)->find($model), Route::currentRouteName());
+        $this->setFormProperties(app()->make(IPermission::class)->find($model), Route::currentRouteName());
     }
     
     public function view($compnent="-component")

@@ -30,25 +30,20 @@ class AclServiceProvider extends ServiceProvider
     {
         if(trait_exists(\App\Actions\Fortify\PasswordValidationRules::class))
            $this->app->register(RouteServiceProvider::class);
-
-            if(class_exists('App\Models\User')){
-                $this->app->bind(IUser::class, 'App\Models\User');
-            }
-            else{
-                    $this->app->bind(IUser::class, ModelsUser::class);
-            }
+          
+         
 
             if(class_exists('App\Models\Permission')){
-                $this->app->bind(IPermission::class, 'App\Models\Permission');
+                $this->app->singleton(IPermission::class, 'App\Models\Permission');
             }
             else{
-                    $this->app->bind(PerIPermissionmission::class, ModelsPermission::class);
+                    $this->app->singleton(IPermission::class, ModelsPermission::class);
             }
             if(class_exists('App\Models\Role')){
-            $this->app->bind(IRole::class, 'App\Models\Role');
+            $this->app->singleton(IRole::class, 'App\Models\Role');
             }
             else{
-                $this->app->bind(IRole::class, ModelsRole::class);
+                $this->app->singleton(IRole::class, ModelsRole::class);
             }
         }
 
@@ -98,7 +93,16 @@ class AclServiceProvider extends ServiceProvider
         Livewire::component( 'tall::users.edit-component', \Tall\Acl\Http\Livewire\Admin\Users\EditComponent::class);
         Livewire::component( 'tall::roles.edit-component', \Tall\Acl\Http\Livewire\Admin\Roles\EditComponent::class);
         Livewire::component( 'tall::permissions.edit-component', \Tall\Acl\Http\Livewire\Admin\Permissions\EditComponent::class);
-           
+        
+        Livewire::component( 'tall::users.delete-component', \Tall\Acl\Http\Livewire\Admin\Users\DeleteComponent::class);
+        Livewire::component( 'tall::roles.delete-component', \Tall\Acl\Http\Livewire\Admin\Roles\DeleteComponent::class);
+        Livewire::component( 'tall::permissions.delete-component', \Tall\Acl\Http\Livewire\Admin\Permissions\DeleteComponent::class);
+       
+       
+        Livewire::component( 'tall::admin.users.imports.csv-component', \Tall\Acl\Http\Livewire\Admin\Users\Import\CsvComponent::class);
+        Livewire::component( 'tall::admin.roles.imports.csv-component', \Tall\Acl\Http\Livewire\Admin\Roles\Import\CsvComponent::class);
+      
+      
         //PROFILE ADMIN
         Livewire::component( 'tall::admin.profile.show-component', \Tall\Acl\Http\Livewire\Admin\Profile\ShowComponent::class);
         Livewire::component( 'tall::admin.profile.update-profile-information-form', \Tall\Acl\Http\Livewire\Admin\Profile\UpdateProfileInformationForm::class);
@@ -121,10 +125,10 @@ class AclServiceProvider extends ServiceProvider
         Gate::before(function (Authorizable $user, $permission) {
             try {
                 if (method_exists($user, 'hasPermissionTo')) {
-                    return $user->hasPermissionTo($permission) ?: null;
+                    return $user->hasPermissionTo($permission) ? true: null;
                 }
             } catch (\Exception $e) {
-                //dd($e);
+                // dd($e);
             }
         });
     }

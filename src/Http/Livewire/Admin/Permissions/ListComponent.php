@@ -7,7 +7,7 @@
 namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
 use Illuminate\Support\Facades\Route;
-use Tall\Acl\Models\Permission;
+use Tall\Acl\Contracts\IPermission;
 use Tall\Acl\Http\Livewire\TableComponent;
 use Tall\Acl\LoadRouterHelper;
 use Tall\Table\Fields\Column;
@@ -17,7 +17,7 @@ final class ListComponent extends TableComponent
 
     public function mount()
     {
-        // LoadRouterHelper::save();
+         LoadRouterHelper::save();
 
         $this->setUp(Route::currentRouteName());
     }
@@ -47,7 +47,7 @@ final class ListComponent extends TableComponent
     |
     */
     protected function query(){
-        return Permission::query();
+        return app()->make(IPermission::class)::query();
     }
     
     protected function  view($sufix="-component"){

@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\HasPermissions;
 use Tall\Acl\Contracts\IRole;
 use Tall\Acl\Contracts\IUser;
+use Tall\Tenant\Contracts\ITenant;
+use Tall\Tenant\Models\Landlord\Tenant;
 
 class Role extends AbstractModel implements IRole
 {
@@ -40,8 +42,17 @@ class Role extends AbstractModel implements IRole
 
         return $this->permissions();
     }
+    public function scopeTenants($query, $term)
+    {
+        return $query->whereHas('hasTenants', function ($builder) use ($term) {
+            $builder->where('id', $term);
+        });
+    }
 
-
+    public function hasTenants()
+    {
+        return $this->belongsToMany(Tenant::class)->withTimestamps();
+    }
     /**
      * Roles can belong to many users.
      *
