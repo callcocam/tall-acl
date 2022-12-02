@@ -193,6 +193,6 @@ class CsvComponent extends ImportComponent
     |
     */
     protected function view($component="-component"){
-        return "tall::roles.import.csv-component";
+        return "tall::permissions.import.csv-component";
      }
 }

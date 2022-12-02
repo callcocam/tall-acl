@@ -56,7 +56,7 @@
                         class="form-select mt-1 h-8 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                         <option>{{ __('Selecione') }}</option>
                         @foreach ($fileHeaders as $header)
-                            @if (!in_array($header, ['deleted_at', 'created_at', 'updated_at', 'slug']))
+                            @if (!in_array($header, $ignoreColumns))
                                 <option value="{{ $header }}">{{ $header }}</option>
                             @endif
                         @endforeach
@@ -72,6 +72,7 @@
     @endif
     <x-slot name="imports">
         {{-- @livewire('tall::admin.imports.csv-imports-component', compact('model')) --}}
+        <x-tall-validation-errors />
     </x-slot>
     <x-slot name="actions">
         @if ($fileHeaders)

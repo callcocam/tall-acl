@@ -1,11 +1,15 @@
 <?php
-
+/**
+* Created by Claudio Campos.
+* User: callcocam@gmail.com, contato@sigasmart.com.br
+* https://www.sigasmart.com.br
+*/
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Tall\Acl\Contracts\IRole;
-use Tall\Acl\Contracts\IUser;
+use Tall\Acl\Models\Role;
 
 class AclSeeder extends Seeder
 {
@@ -19,17 +23,17 @@ class AclSeeder extends Seeder
          /**
          *@var $model Builder
          */
-        $userModel = app(IUser::class);
+        $userModel = app(User::class);
         
         $userModel->query()->forceDelete();
         $user =   $userModel->factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Landlord User',
+            'email' => 'landlord@example.com',
         ]);
         /**
          *@var $model Builder
          */
-        $modelRole = app(IRole::class);
+        $modelRole = app(Role::class);
 
         $modelRole->query()->forceDelete();
         $role =  $modelRole->factory()->create([
@@ -63,13 +67,13 @@ class AclSeeder extends Seeder
             'special'=>'no-access'
         ]);
 
-        $userModel->factory(100)->create()->each(function($user) use($role){
-            if(isset($role[rand(1,4)])){
-                $model = $role[rand(1,4)];
-                $model->user_id = $user->id;
-                $model->update();
-                $user->roles()->sync([$model->id]);
-            }
-        });          
+        // $userModel->factory(100)->create()->each(function($user) use($role){
+        //     if(isset($role[rand(1,4)])){
+        //         $model = $role[rand(1,4)];
+        //         $model->user_id = $user->id;
+        //         $model->update();
+        //         $user->roles()->sync([$model->id]);
+        //     }
+        // });          
     }
 }
