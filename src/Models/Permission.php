@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Tall\Acl\Concerns\RefreshesPermissionCache;
 use Tall\Acl\Contracts\IPermission;
 use Tall\Acl\Contracts\IRole;
+use Tall\Tenant\Models\Landlord\Tenant;
 
 class Permission extends AbstractModel implements IPermission
 {
@@ -40,5 +41,18 @@ class Permission extends AbstractModel implements IPermission
     protected function slugTo()
     {
         return false;
+    }
+
+    
+    public function scopeTenants($query, $term)
+    {
+        return $query->whereHas('hasTenants', function ($builder) use ($term) {
+            $builder->where('id', $term);
+        });
+    }
+
+    public function hasTenants()
+    {
+        return $this->belongsToMany(Tenant::class)->withTimestamps();
     }
 }

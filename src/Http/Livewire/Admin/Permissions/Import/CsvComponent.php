@@ -127,7 +127,7 @@ class CsvComponent extends ImportComponent
 
         
         $tenant = get_tenant();
-        $roles = [];
+        $permissions = [];
         foreach ($batches as $batche) {
          
           foreach ($batche as $value) {
@@ -135,15 +135,14 @@ class CsvComponent extends ImportComponent
             foreach($columnMaps as $to => $from){
               $data[$to] = data_get($value, $from);
             }
-            
-            $role =   app()->make(IPermission::class)->firstOrCreate([
-              'name' => data_get($data, 'name'),
+            $permission =   app()->make(IPermission::class)->firstOrCreate([
+              'slug' => data_get($data, 'slug'),
             ],$data);
-            $roles[] = $role->id;
+            $permissions[] = $permission->id;
             }
           }
           
-        $tenant->hasPermissino()->sync($roles);
+        $tenant->hasPermissions()->sync($permissions);
         
         $this->reset(['file','fileHeaders', 'columnMaps','requiredColumnMaps']);
 

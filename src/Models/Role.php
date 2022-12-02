@@ -42,6 +42,7 @@ class Role extends AbstractModel implements IRole
 
         return $this->permissions();
     }
+    
     public function scopeTenants($query, $term)
     {
         return $query->whereHas('hasTenants', function ($builder) use ($term) {
