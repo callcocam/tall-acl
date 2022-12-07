@@ -26,7 +26,7 @@ class EditComponent extends FormComponent
     public function mount($model)
     {
 
-        $this->setFormProperties(app(IRole::class)->find($model), Route::currentRouteName());
+        $this->setFormProperties(app(IRole::class)->find($model));
     
     }
 

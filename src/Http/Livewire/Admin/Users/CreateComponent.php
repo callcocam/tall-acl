@@ -45,7 +45,7 @@ class CreateComponent extends FormComponent
     */
     public function mount(?IUser $model)
     {
-        $this->setFormProperties($model, Route::currentRouteName()); // $user from hereon, called $this->model
+        $this->setFormProperties($model); // $user from hereon, called $this->model
     }
     
     protected function success($callback=null){

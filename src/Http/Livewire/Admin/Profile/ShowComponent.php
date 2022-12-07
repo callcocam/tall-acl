@@ -16,7 +16,7 @@ class ShowComponent extends FormComponent
 
     public function mount()
     {
-        $this->setFormProperties(auth()->user(), Route::currentRouteName());
+        $this->setFormProperties(auth()->user());
     }
 
     public function fields()

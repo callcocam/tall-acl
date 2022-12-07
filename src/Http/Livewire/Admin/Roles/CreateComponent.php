@@ -7,7 +7,6 @@
 namespace Tall\Acl\Http\Livewire\Admin\Roles;
 
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
 use Tall\Acl\Contracts\IRole;
 use Tall\Form\Fields\Field;
 
@@ -22,7 +21,7 @@ class CreateComponent extends FormComponent
     */
     public function mount(?IRole $model)
     {
-        $this->setFormProperties($model,Route::currentRouteName()); 
+        $this->setFormProperties(app($model)); 
     }
     
     

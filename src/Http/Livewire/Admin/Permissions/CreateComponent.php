@@ -6,9 +6,7 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
-use Tall\Acl\Models\Permission;
 use Tall\Acl\Http\Livewire\FormComponent;
-use Illuminate\Support\Facades\Route;
 use Tall\Acl\Contracts\IPermission;
 use Tall\Form\Fields\Field;
 
@@ -23,9 +21,11 @@ class CreateComponent extends FormComponent
     | Inicia o formulario com um cadastro vasio
     |
     */
-    public function mount(?Permission $model)
+    public function mount()
     {
-        $this->setFormProperties(app()->make(IPermission::class)->make($this->blankModel()), Route::currentRouteName());
+        $this->setFormProperties(app()->make(IPermission::class)->make($this->blankModel()));
+
+        
     }
     
     protected function fields()

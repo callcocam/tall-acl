@@ -6,7 +6,6 @@
 */
 namespace Tall\Acl\Http\Livewire\Admin\Permissions;
 
-use Illuminate\Support\Facades\Route;
 use Tall\Acl\Contracts\IPermission;
 use Tall\Orm\Http\Livewire\DeleteComponent as LivewireDeleteComponent;
 
@@ -24,7 +23,7 @@ class DeleteComponent extends LivewireDeleteComponent
     */
     public function mount($model)
     {
-        $this->setFormProperties(app()->make(IPermission::class)->find($model), Route::currentRouteName());
+        $this->setFormProperties(app()->make(IPermission::class)->find($model));
     }
     
     public function view($compnent="-component")

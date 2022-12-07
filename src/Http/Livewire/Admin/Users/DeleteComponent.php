@@ -25,7 +25,7 @@ class DeleteComponent extends LivewireDeleteComponent
     */
     public function mount( $model)
     {
-        $this->setFormProperties(app()->make(IUser::class)->find($model), Route::currentRouteName());
+        $this->setFormProperties(app()->make(IUser::class)->find($model));
     }
     
     public function view($compnent="-component")
